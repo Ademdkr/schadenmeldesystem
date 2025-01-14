@@ -1,0 +1,48 @@
+<mat-card class="auftrag-card">
+  <h2>Auftrag Detailansicht</h2>
+
+  <!-- Kennzeichen -->
+  <mat-form-field appearance="fill">
+    <mat-label>Kennzeichen</mat-label>
+    <input matInput [value]="auftrag?.kennzeichen" disabled />
+  </mat-form-field>
+
+  <!-- Fahrzeug Information -->
+  <div *ngIf="fahrzeug" class="fahrzeug-info">
+    <h3>Fahrzeug Information</h3>
+    <p><strong>Fahrgestellnummer (VIN):</strong> {{ fahrzeug?.vin || '-' }}</p>
+    <p><strong>Marke:</strong> {{ fahrzeug?.marke || '-' }}</p>
+    <p><strong>Modell:</strong> {{ fahrzeug?.modell || '-' }}</p>
+    <p><strong>Baujahr:</strong> {{ fahrzeug?.baujahr || '-' }}</p>
+  </div>
+
+  <!-- Beschreibung -->
+  <mat-form-field appearance="fill">
+    <mat-label>Beschreibung</mat-label>
+    <textarea matInput [value]="auftrag?.beschreibung" rows="4" disabled></textarea>
+  </mat-form-field>
+
+  <!-- Fahrtüchtig -->
+  <mat-form-field appearance="fill">
+    <mat-label>Fahrtüchtig</mat-label>
+    <input matInput [value]="auftrag?.fahrtuechtig ? 'Ja' : 'Nein'" disabled />
+  </mat-form-field>
+
+  <!-- Standort -->
+  <mat-form-field appearance="fill">
+    <mat-label>Standort</mat-label>
+    <input matInput [value]="auftrag?.standort" disabled />
+  </mat-form-field>
+
+  <!-- Erstellungsdatum -->
+  <mat-form-field appearance="fill">
+    <mat-label>Erstellt am</mat-label>
+    <input matInput [value]="auftrag?.erstelltAm" disabled />
+  </mat-form-field>
+
+  <!-- Marke -->
+  <mat-form-field appearance="fill">
+    <mat-label>Marke</mat-label>
+    <input matInput [value]="auftrag?.marke" disabled />
+  </mat-form-field>
+</mat-card>
