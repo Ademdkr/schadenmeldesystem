@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="first">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="detail-ansicht weiter implementiert (unvollstaendig)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/services/auftraege.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/services/auftraege.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +31,12 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="backend" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -43,6 +44,11 @@
     </system>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="check4" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -78,7 +84,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;check5&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -133,8 +139,64 @@
       <option name="presentableId" value="Default" />
       <updated>1736790008902</updated>
       <workItem from="1736790010295" duration="894000" />
-      <workItem from="1736802052148" duration="305000" />
+      <workItem from="1736802052148" duration="8722000" />
+      <workItem from="1736868655664" duration="4004000" />
+      <workItem from="1736877867478" duration="10093000" />
+      <workItem from="1736948832828" duration="677000" />
+      <workItem from="1736955321886" duration="19734000" />
+      <workItem from="1737055943813" duration="12104000" />
+      <workItem from="1737121073124" duration="13766000" />
+      <workItem from="1737141537442" duration="4559000" />
     </task>
+    <task id="LOCAL-00001" summary="angular material initialized">
+      <option name="closed" value="true" />
+      <created>1736802411085</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1736802411085</updated>
+    </task>
+    <task id="LOCAL-00002" summary="sidenav- &amp; uebersicht-Oberflaechen implementiert">
+      <option name="closed" value="true" />
+      <created>1736813216766</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1736813216766</updated>
+    </task>
+    <task id="LOCAL-00003" summary="sidenav- &amp; uebersicht-Oberflaechen implementiert">
+      <option name="closed" value="true" />
+      <created>1736813502593</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736813502593</updated>
+    </task>
+    <task id="LOCAL-00004" summary="sidenav- und route-Oberflaechen implementiert">
+      <option name="closed" value="true" />
+      <created>1736880842189</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1736880842189</updated>
+    </task>
+    <task id="LOCAL-00005" summary="detail-ansicht weiter implementiert (unvollstaendig)">
+      <option name="closed" value="true" />
+      <created>1737065732494</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737065732494</updated>
+    </task>
+    <task id="LOCAL-00006" summary="detail-ansicht weiter implementiert (unvollstaendig)">
+      <option name="closed" value="true" />
+      <created>1737139173254</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1737139173254</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +204,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
-    <option name="LAST_COMMIT_MESSAGE" value="first" />
+    <MESSAGE value="angular material initialized" />
+    <MESSAGE value="sidenav- und uebersicht-Oberflaechen implementiert" />
+    <MESSAGE value="sidenav- &amp; uebersicht-Oberflaechen implementiert" />
+    <MESSAGE value="sidenav- und route-Oberflaechen implementiert" />
+    <MESSAGE value="detail-ansicht implementiert (unvollstaendig)" />
+    <MESSAGE value="detail-ansicht weiter implementiert (fast komplett)" />
+    <MESSAGE value="detail-ansicht weiter implementiert (unvollstaendig)" />
+    <option name="LAST_COMMIT_MESSAGE" value="detail-ansicht weiter implementiert (unvollstaendig)" />
   </component>
 </project>
