@@ -4,15 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="first">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="sidenav- und route-Oberflaechen implementiert">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/abgeschlossene-auftraege/abgeschlossene-auftraege.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/abgeschlossene-auftraege/abgeschlossene-auftraege.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/abgeschlossene-auftraege/abgeschlossene-auftraege.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/abgeschlossene-auftraege/abgeschlossene-auftraege.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-erstellen/auftrag-erstellen.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-erstellen/auftrag-erstellen.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-erstellen/auftrag-erstellen.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-erstellen/auftrag-erstellen.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-erstellen/auftrag-erstellen.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-erstellen/auftrag-erstellen.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/in-bearbeitung-auftraege/in-bearbeitung-auftraege.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/in-bearbeitung-auftraege/in-bearbeitung-auftraege.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/in-bearbeitung-auftraege/in-bearbeitung-auftraege.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/in-bearbeitung-auftraege/in-bearbeitung-auftraege.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/offene-auftraege/offene-auftraege.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/offene-auftraege/offene-auftraege.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/offene-auftraege/offene-auftraege.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/offene-auftraege/offene-auftraege.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/terminierte-auftraege/terminierte-auftraege.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/terminierte-auftraege/terminierte-auftraege.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/terminierte-auftraege/terminierte-auftraege.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/terminierte-auftraege/terminierte-auftraege.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/uebersicht/uebersicht.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/uebersicht/uebersicht.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/uebersicht/uebersicht.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/uebersicht/uebersicht.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +49,11 @@
     </system>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="check" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -66,41 +77,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build backend.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.Angular Application (frontend).executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.Angular CLI Server (frontend).executor&quot;: &quot;Run&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.23333333&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Adem\\Desktop\\Dev\\Java\\schadenmeldesystem\\frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build backend.executor": "Run",
+    "JavaScript Debug.Angular Application (frontend).executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.BackendApplication.executor": "Run",
+    "git-widget-placeholder": "check2",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "npm.Angular CLI Server (frontend).executor": "Run",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.23333333",
+    "ts.external.directory.path": "C:\\Users\\Adem\\Desktop\\Dev\\Java\\schadenmeldesystem\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;module&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory",
+      "module"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="npm.Angular CLI Server (frontend)">
     <configuration name="Angular Application (frontend)" type="JavascriptDebugType" uri="http://localhost:4200">
       <method v="2" />
@@ -133,8 +144,45 @@
       <option name="presentableId" value="Default" />
       <updated>1736790008902</updated>
       <workItem from="1736790010295" duration="894000" />
-      <workItem from="1736802052148" duration="305000" />
+      <workItem from="1736802052148" duration="8722000" />
+      <workItem from="1736868655664" duration="4004000" />
+      <workItem from="1736877867478" duration="10093000" />
+      <workItem from="1736948832828" duration="677000" />
+      <workItem from="1736955321886" duration="19734000" />
     </task>
+    <task id="LOCAL-00001" summary="angular material initialized">
+      <option name="closed" value="true" />
+      <created>1736802411085</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1736802411085</updated>
+    </task>
+    <task id="LOCAL-00002" summary="sidenav- &amp; uebersicht-Oberflaechen implementiert">
+      <option name="closed" value="true" />
+      <created>1736813216766</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1736813216766</updated>
+    </task>
+    <task id="LOCAL-00003" summary="sidenav- &amp; uebersicht-Oberflaechen implementiert">
+      <option name="closed" value="true" />
+      <created>1736813502593</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736813502593</updated>
+    </task>
+    <task id="LOCAL-00004" summary="sidenav- und route-Oberflaechen implementiert">
+      <option name="closed" value="true" />
+      <created>1736880842189</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1736880842189</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +190,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
-    <option name="LAST_COMMIT_MESSAGE" value="first" />
+    <MESSAGE value="angular material initialized" />
+    <MESSAGE value="sidenav- und uebersicht-Oberflaechen implementiert" />
+    <MESSAGE value="sidenav- &amp; uebersicht-Oberflaechen implementiert" />
+    <MESSAGE value="sidenav- und route-Oberflaechen implementiert" />
+    <option name="LAST_COMMIT_MESSAGE" value="sidenav- und route-Oberflaechen implementiert" />
   </component>
 </project>

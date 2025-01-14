@@ -1,0 +1,23 @@
+.offene-auftraege-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  /*margin-left: 250px; !* Platz für die Sidenav *!*/
+}
+
+h2 {
+  margin-bottom: 16px;
+}
+
+mat-table {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-paginator {
+  margin-top: 8px;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
