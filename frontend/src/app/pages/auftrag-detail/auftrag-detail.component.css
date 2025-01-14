@@ -1,0 +1,64 @@
+/* Karte für die Auftragsseite */
+.auftrag-card {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+/* Bereich mit deaktivierten Eingaben */
+.auftrag-card mat-form-field[appearance='fill'] {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* Überschrift für die Karte */
+.auftrag-card h2 {
+  margin-top: 0;
+  margin-bottom: 32px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #444444;
+}
+
+/* Fahrzeuginformationen */
+.fahrzeug-info {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* Fahrzeugüberschrift */
+.fahrzeug-info h3 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  color: #555555;
+}
+
+/* Info-Text */
+.info-text {
+  margin-top: 8px;
+  color: #555555;
+  font-weight: 500;
+}
+
+/* Trennungsüberschrift */
+.terminieren-header {
+  padding-top: 24px;
+  margin: 24px 0 8px;
+  font-size: 1.2rem;
+  color: #444444;
+}
+
+/* Erstellen-Button */
+button[mat-raised-button] {
+  display: block;
+  margin: 20px auto 0;
+  padding: 8px 24px;
+  font-size: 1rem;
+}

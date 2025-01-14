@@ -1,0 +1,50 @@
+<div class="terminierte-auftraege-container">
+  <h2>Terminierte Aufträge</h2>
+  <mat-table [dataSource]="terminierteAuftraegeDataSource" class="mat-elevation-z8">
+    <!-- Auftrag-ID -->
+    <ng-container matColumnDef="auftragId">
+      <mat-header-cell *matHeaderCellDef> Auftrag-ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.auftragId || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Kennzeichen -->
+    <ng-container matColumnDef="kennzeichen">
+      <mat-header-cell *matHeaderCellDef> Kennzeichen </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.kennzeichen || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Marke -->
+    <ng-container matColumnDef="marke">
+      <mat-header-cell *matHeaderCellDef> Marke </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.marke || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Abgabe Termin -->
+    <ng-container matColumnDef="abgabeTermin">
+      <mat-header-cell *matHeaderCellDef> Abgabe Termin </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.abgabeTermin || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Abgabe Ort -->
+    <ng-container matColumnDef="abgabeOrt">
+      <mat-header-cell *matHeaderCellDef> Abgabe Ort </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.abgabeOrt || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Abgabe Bestätigt -->
+    <ng-container matColumnDef="abgabeBestaetigt">
+      <mat-header-cell *matHeaderCellDef> Abgabe Bestätigt </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element?.abgabeBestaetigt === true ? 'Ja' : (element?.abgabeBestaetigt === false ? 'Nein' : '-') }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Tabellenzeilen -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" [routerLink]="['/auftrag-detail', row.auftragId]" class="table-row">
+    </mat-row>
+
+  </mat-table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+</div>
