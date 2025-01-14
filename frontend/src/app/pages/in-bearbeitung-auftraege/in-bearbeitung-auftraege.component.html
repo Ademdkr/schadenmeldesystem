@@ -1,0 +1,40 @@
+<div class="in-bearbeitung-auftraege-container">
+  <h2>In Bearbeitung Aufträge</h2>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Auftrag-ID -->
+    <ng-container matColumnDef="auftragId">
+      <mat-header-cell *matHeaderCellDef> Auftrag-ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.auftragId || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Kennzeichen -->
+    <ng-container matColumnDef="kennzeichen">
+      <mat-header-cell *matHeaderCellDef> Kennzeichen </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.kennzeichen || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Marke -->
+    <ng-container matColumnDef="marke">
+      <mat-header-cell *matHeaderCellDef> Marke </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.marke || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Bearbeiter -->
+    <ng-container matColumnDef="bearbeiter">
+      <mat-header-cell *matHeaderCellDef> Bearbeiter </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.bearbeiter || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Reparatur Start -->
+    <ng-container matColumnDef="reparaturStart">
+      <mat-header-cell *matHeaderCellDef> Reparatur Start </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.reparaturStart || '-' }} </mat-cell>
+    </ng-container>
+
+    <!-- Tabellenzeilen -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+</div>
