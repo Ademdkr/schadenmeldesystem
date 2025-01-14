@@ -1,0 +1,56 @@
+<mat-card class="auftrag-card">
+  <h2>Reparaturauftrag erstellen</h2>
+
+  <!-- Eingabefelder -->
+  <mat-form-field appearance="fill">
+    <mat-label>Kennzeichen</mat-label>
+    <input matInput [(ngModel)]="auftrag.kennzeichen" (ngModelChange)="findVehicle()" placeholder="Kennzeichen">
+  </mat-form-field>
+
+  <!-- Fahrzeug Information -->
+  <div *ngIf="fahrzeug" class="fahrzeug-info">
+    <h3>Fahrzeug Information</h3>
+    <p><strong>Fahrgestellnummer (VIN):</strong> {{ fahrzeug.vin }}</p>
+    <p><strong>Marke:</strong> {{ fahrzeug.marke }}</p>
+    <p><strong>Modell:</strong> {{ fahrzeug.modell }}</p>
+    <p><strong>Baujahr:</strong> {{ fahrzeug.baujahr }}</p>
+  </div>
+
+  <div *ngIf="!fahrzeug && auftrag.kennzeichen">
+    <p>Kein Fahrzeug gefunden!</p>
+  </div>
+
+  <mat-form-field appearance="fill" class="form-field">
+    <mat-label>Beschreibung</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="auftrag.beschreibung"
+      rows="4"
+      placeholder="Geben Sie hier die Beschreibung ein"
+    ></textarea>
+  </mat-form-field>
+
+
+  <!-- Fahrtüchtig Auswahl -->
+  <mat-form-field appearance="fill">
+    <mat-label>Fahrtüchtig</mat-label>
+    <mat-select [(ngModel)]="auftrag.fahrttuechtig">
+      <mat-option [value]="true">Ja</mat-option>
+      <mat-option [value]="false">Nein</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Standort Auswahl -->
+  <mat-form-field appearance="fill">
+    <mat-label>Standort</mat-label>
+    <mat-select [(ngModel)]="auftrag.standort">
+      <mat-option value="Lager">Lager</mat-option>
+      <mat-option value="Werkstatt">Werkstatt</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Erstellen Button -->
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!fahrzeug">
+    Auftrag erstellen
+  </button>
+</mat-card>
