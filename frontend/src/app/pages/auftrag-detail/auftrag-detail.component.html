@@ -1,0 +1,147 @@
+<mat-card class="auftrag-card">
+  <h2>Auftrag Detailansicht</h2>
+
+  <!-- Auftrag-ID -->
+  <mat-form-field appearance="fill">
+    <mat-label>Auftrag-ID</mat-label>
+    <input matInput [value]="auftrag?.auftragId" disabled/>
+  </mat-form-field>
+
+  <!-- Kennzeichen -->
+  <mat-form-field appearance="fill">
+    <mat-label>Kennzeichen</mat-label>
+    <input matInput [value]="auftrag?.kennzeichen" disabled/>
+  </mat-form-field>
+
+  <!-- Fahrzeug Information -->
+  <div *ngIf="fahrzeug" class="fahrzeug-info">
+    <h3>Fahrzeug Information</h3>
+    <p><strong>Fahrgestellnummer (VIN):</strong> {{ fahrzeug?.vin || '-' }}</p>
+    <p><strong>Marke:</strong> {{ fahrzeug?.marke || '-' }}</p>
+    <p><strong>Modell:</strong> {{ fahrzeug?.modell || '-' }}</p>
+    <p><strong>Baujahr:</strong> {{ fahrzeug?.baujahr || '-' }}</p>
+  </div>
+
+  <!-- Beschreibung -->
+  <mat-form-field appearance="fill">
+    <mat-label>Beschreibung</mat-label>
+    <textarea matInput [value]="auftrag?.beschreibung" rows="4" disabled></textarea>
+  </mat-form-field>
+
+  <!-- Fahrtüchtig -->
+  <mat-form-field appearance="fill">
+    <mat-label>Fahrtüchtig</mat-label>
+    <input matInput [value]="auftrag?.fahrtuechtig ? 'Ja' : 'Nein'" disabled/>
+  </mat-form-field>
+
+  <!-- Standort -->
+  <mat-form-field appearance="fill">
+    <mat-label>Standort</mat-label>
+    <input matInput [value]="auftrag?.standort" disabled/>
+  </mat-form-field>
+
+  <!-- Erstellungsdatum -->
+  <mat-form-field appearance="fill">
+    <mat-label>Erstellt am</mat-label>
+    <input matInput [value]="auftrag?.erstelltAm" disabled/>
+  </mat-form-field>
+
+  <!-- Erstellt von -->
+  <p class="info-text">
+    <strong>Erstellt von:</strong>
+    {{ auftrag?.rolle || '-' }}, {{ auftrag?.erstelltVon || '-' }} ({{ auftrag?.email || '-' }})
+  </p>
+
+  <!-- Status -->
+  <p class="info-text"><strong>Status:</strong> {{ auftrag?.status || '-' }}</p>
+
+  <!-- Trennung -->
+  <mat-divider></mat-divider>
+
+  <!-- Auftrag terminieren Überschrift -->
+  <h2 class="terminieren-header">
+    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' ? 'Termin' : 'Auftrag Terminieren' }}
+  </h2>
+
+  <!-- Abgabe Ort -->
+  <mat-form-field appearance="fill">
+    <mat-label>Abgabe Ort</mat-label>
+    <mat-select [(value)]="auftrag.abgabeOrt" [disabled]="auftrag?.status !== 'Offen'">
+      <mat-option value="Werkstatt">Werkstatt</mat-option>
+      <mat-option value="Lager">Lager</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Abgabe Datum -->
+  <mat-form-field appearance="fill">
+    <mat-label>Abgabe Datum</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="auftrag.abgabeDatum"
+           [disabled]="auftrag?.status !== 'Offen'"/>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Button Bearbeitung Starten -->
+  <div *ngIf="auftrag?.status === 'Offen'" class="button-section">
+    <button mat-raised-button color="primary" (click)="terminieren()">Terminieren</button>
+  </div>
+
+
+  <!-- Abgabe Bestätigen -->
+  <div
+    *ngIf="auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'"
+    class="abgabe-section">
+
+    <!-- Neue Trennung -->
+    <mat-divider></mat-divider>
+
+    <h2>
+      {{ auftrag?.status === 'Terminiert' ? 'Abgabe Bestätigen' : 'Abgabe Bestätigt' }}
+    </h2>
+
+    <!-- Checkbox für Abgabe -->
+    <mat-checkbox
+      [(ngModel)]="auftrag.abgabeBestaetigt"
+      [disabled]="auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'">
+      Bestätigung, dass der LKW am Abgabeort zur Verfügung gestellt wurde.
+    </mat-checkbox>
+
+  </div>
+
+  <!-- Button Bearbeitung Starten -->
+  <div *ngIf="auftrag?.status === 'Terminiert'" class="button-section">
+    <button mat-raised-button color="primary" (click)="startBearbeitung()">Bearbeitung Starten</button>
+  </div>
+
+  <!-- Neue Trennung -->
+  <mat-divider *ngIf="auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'"></mat-divider>
+
+  <!-- Bearbeitung Beenden -->
+  <div *ngIf="auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'" class="abgabe-section">
+    <h2>{{ auftrag?.status === 'In Bearbeitung' ? 'Bearbeitung Beenden' : 'Bearbeitung Beendet' }}</h2>
+
+    <!-- Felder für Bearbeitung -->
+    <p class="info-text">
+      <strong>Bearbeiter:</strong> {{ auftrag?.bearbeiter || '-' }}
+    </p>
+
+    <!-- E-Mail -->
+    <p class="info-text">
+      <strong>E-Mail:</strong> {{ auftrag?.bearbeiterEmail || '-' }}
+    </p>
+
+    <!-- Reparatur Start -->
+    <p class="info-text">
+      <strong>Reparatur Start:</strong> {{ auftrag?.reparaturStart || '-' }}
+    </p>
+
+    <p class="info-text">
+      <strong>Reparatur Ende:</strong> {{ auftrag?.reparaturEnde || '-' }}
+    </p>
+
+    <!-- Button Bearbeitung Beenden -->
+    <div *ngIf="auftrag?.status === 'In Bearbeitung'" class="button-section">
+      <button mat-raised-button color="primary" (click)="endBearbeitung()">Bearbeitung Beenden</button>
+    </div>
+  </div>
+</mat-card>
