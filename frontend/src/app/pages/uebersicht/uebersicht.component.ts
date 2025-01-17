@@ -1,18 +1,16 @@
 import {AfterViewInit, Component, ViewChild, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { AuftraegeService } from '../../shared/services/auftraege.service'; // Füge den Import des Services hinzu
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MaterialModule} from '../../shared/modules/material.module';
+import {AuftraegeService} from '../../shared/services/auftraege.service'; // Füge den Import des Services hinzu
+
+
 
 @Component({
   selector: 'app-uebersicht',
   standalone: true,
   imports: [
-    CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
+    MaterialModule
   ],
   templateUrl: './uebersicht.component.html',
   styleUrls: ['./uebersicht.component.css']
@@ -30,7 +28,8 @@ export class UebersichtComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) terminierteAuftraegePaginator!: MatPaginator;
   @ViewChild(MatPaginator) inBearbeitungAuftraegePaginator!: MatPaginator;
 
-  constructor(private auftraegeService: AuftraegeService) {}
+  constructor(private auftraegeService: AuftraegeService) {
+  }
 
   ngOnInit() {
     // Lade die echten Aufträge aus dem AuftraegeService
