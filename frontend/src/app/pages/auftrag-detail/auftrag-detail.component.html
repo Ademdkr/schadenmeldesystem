@@ -43,7 +43,7 @@
   <!-- Erstellungsdatum -->
   <mat-form-field appearance="fill">
     <mat-label>Erstellt am</mat-label>
-    <input matInput [value]="auftrag?.erstelltAm" disabled/>
+    <input matInput [value]="auftrag?.erstelltAm | dateFormat:'datetime'" disabled/>
   </mat-form-field>
 
   <!-- Erstellt von -->
@@ -59,12 +59,14 @@
   <mat-divider></mat-divider>
 
   <!-- Auftrag terminieren Überschrift -->
-  <h2 class="terminieren-header">
-    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' ? 'Termin' : 'Auftrag Terminieren' }}
+  <h2 class="terminieren-header"
+      *ngIf="(auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen' && userRole === 'Fahrer') || userRole === 'Werkstatt'">
+    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen' ? 'Termin' : 'Auftrag Terminieren' }}
   </h2>
 
   <!-- Abgabe Ort -->
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill"
+                  *ngIf="(auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen' && userRole === 'Fahrer') || userRole === 'Werkstatt'">
     <mat-label>Abgabe Ort</mat-label>
     <mat-select [(value)]="auftrag.abgabeOrt" [disabled]="auftrag?.status !== 'Offen'">
       <mat-option value="Werkstatt">Werkstatt</mat-option>
@@ -73,19 +75,22 @@
   </mat-form-field>
 
   <!-- Abgabe Datum -->
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill"
+                  *ngIf="(auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen' && userRole === 'Fahrer') || userRole === 'Werkstatt'">
     <mat-label>Abgabe Datum</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="auftrag.abgabeDatum"
+    <input matInput [matDatepicker]="picker"
+           [(ngModel)]="auftrag.abgabeDatum "
            [disabled]="auftrag?.status !== 'Offen'"/>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <!-- Button Bearbeitung Starten -->
-  <div *ngIf="auftrag?.status === 'Offen'" class="button-section">
-    <button mat-raised-button color="primary" (click)="terminieren()">Terminieren</button>
+  <!-- Button Terminieren -->
+  <div *ngIf="auftrag?.status === 'Offen' && userRole === 'Werkstatt'" class="button-section">
+    <button mat-raised-button color="primary" (click)="terminieren()"
+            [disabled]="!auftrag.abgabeOrt || !auftrag.abgabeDatum">Terminieren
+    </button>
   </div>
-
 
   <!-- Abgabe Bestätigen -->
   <div
@@ -102,15 +107,18 @@
     <!-- Checkbox für Abgabe -->
     <mat-checkbox
       [(ngModel)]="auftrag.abgabeBestaetigt"
-      [disabled]="auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'">
+      (change)="abgabeBestaetigen($event)"
+      [disabled]="auftrag.abgabeBestaetigt || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'">
       Bestätigung, dass der LKW am Abgabeort zur Verfügung gestellt wurde.
     </mat-checkbox>
 
   </div>
 
   <!-- Button Bearbeitung Starten -->
-  <div *ngIf="auftrag?.status === 'Terminiert'" class="button-section">
-    <button mat-raised-button color="primary" (click)="startBearbeitung()">Bearbeitung Starten</button>
+  <div *ngIf="auftrag?.status === 'Terminiert' && userRole === 'Werkstatt'" class="button-section">
+    <button mat-raised-button color="primary" (click)="startBearbeitung()" [disabled]="!auftrag.abgabeBestaetigt">
+      Bearbeitung Starten
+    </button>
   </div>
 
   <!-- Neue Trennung -->
@@ -132,15 +140,18 @@
 
     <!-- Reparatur Start -->
     <p class="info-text">
-      <strong>Reparatur Start:</strong> {{ auftrag?.reparaturStart || '-' }}
+      <strong>Reparatur Start:</strong> {{ auftrag?.reparaturStart | dateFormat:'datetime' }}
     </p>
 
+
     <p class="info-text">
-      <strong>Reparatur Ende:</strong> {{ auftrag?.reparaturEnde || '-' }}
+      <strong>Reparatur Ende:</strong> {{ auftrag?.reparaturEnde | dateFormat:'datetime' }}
     </p>
 
     <!-- Button Bearbeitung Beenden -->
-    <div *ngIf="auftrag?.status === 'In Bearbeitung'" class="button-section">
+    <div
+      *ngIf="(auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen') && userRole === 'Werkstatt'"
+      class="abgabe-section">
       <button mat-raised-button color="primary" (click)="endBearbeitung()">Bearbeitung Beenden</button>
     </div>
   </div>

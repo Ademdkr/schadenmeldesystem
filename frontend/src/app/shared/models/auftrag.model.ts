@@ -5,8 +5,8 @@ export interface Auftrag {
   fahrtuechtig: boolean; // Fahrtüchtigkeit
   standort: string;     // Standort
   erstelltAm: string;   // Erstellungsdatum
-  marke: string;        // Marke
   vin?: string;         // Fahrzeug-VIN (optional)
+  marke?: string;        // Marke
   modell?: string;      // Fahrzeugmodell (optional)
   baujahr?: number;     // Baujahr des Fahrzeugs (optional)
   rolle?: string;       // Rolle des Erstellers
