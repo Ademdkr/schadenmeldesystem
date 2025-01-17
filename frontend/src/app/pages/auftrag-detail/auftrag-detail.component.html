@@ -60,7 +60,7 @@
 
   <!-- Auftrag terminieren Überschrift -->
   <h2 class="terminieren-header">
-    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' ? 'Termin' : 'Auftrag Terminieren' }}
+    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen' ? 'Termin' : 'Auftrag Terminieren' }}
   </h2>
 
   <!-- Abgabe Ort -->
@@ -102,7 +102,8 @@
     <!-- Checkbox für Abgabe -->
     <mat-checkbox
       [(ngModel)]="auftrag.abgabeBestaetigt"
-      [disabled]="auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'">
+      (change)="abgabeBestaetigen($event)"
+      [disabled]="auftrag.abgabeBestaetigt || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'">
       Bestätigung, dass der LKW am Abgabeort zur Verfügung gestellt wurde.
     </mat-checkbox>
 
@@ -132,11 +133,13 @@
 
     <!-- Reparatur Start -->
     <p class="info-text">
-      <strong>Reparatur Start:</strong> {{ auftrag?.reparaturStart || '-' }}
+      <strong>Reparatur Start:</strong> {{ auftrag?.reparaturStart | date: 'dd.MM.yyyy HH:mm' }}
     </p>
 
+
+
     <p class="info-text">
-      <strong>Reparatur Ende:</strong> {{ auftrag?.reparaturEnde || '-' }}
+      <strong>Reparatur Ende:</strong> {{ auftrag?.reparaturEnde | date: 'dd.MM.yyyy HH:mm' }}
     </p>
 
     <!-- Button Bearbeitung Beenden -->
