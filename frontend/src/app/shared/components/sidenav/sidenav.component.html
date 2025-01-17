@@ -1,0 +1,25 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened>
+    <div class="sidenav-header">
+      <p>Benutzerrolle: {{ userRole }}</p>
+      <p>Benutzer-ID: {{ id }} </p>
+      <p>Name: {{ firstName }} {{ lastName }}</p>
+      <p>E-Mail: {{ email }}</p>
+    </div>
+
+    <hr/>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/uebersicht">Übersicht</a>
+      <a mat-list-item routerLink="/auftrag-erstellen">Auftrag erstellen</a>
+      <a mat-list-item routerLink="/auftrag-tabelle/offen">Offene Aufträge</a>
+      <a mat-list-item routerLink="/auftrag-tabelle/terminiert">Terminierte Aufträge</a>
+      <a mat-list-item routerLink="/auftrag-tabelle/in-bearbeitung">In Bearbeitung Aufträge</a>
+      <a mat-list-item routerLink="/auftrag-tabelle/abgeschlossen">Abgeschlossene Aufträge</a>
+    </mat-nav-list>
+
+    <div class="logout-button">
+      <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

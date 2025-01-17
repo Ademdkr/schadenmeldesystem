@@ -1,0 +1,5 @@
+<div class="auftrag-tabelle-container">
+  <h2>{{ status | titlecase }} Aufträge</h2>
+  <app-table [dataSource]="dataSource" [displayedColumns]="displayedColumns"></app-table>
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+</div>

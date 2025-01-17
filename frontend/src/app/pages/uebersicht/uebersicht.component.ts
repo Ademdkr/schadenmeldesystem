@@ -1,80 +1,128 @@
-import {AfterViewInit, Component, ViewChild, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { AuftraegeService } from '../../shared/services/auftraege.service'; // Füge den Import des Services hinzu
+import { Component, OnInit, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { AuftragService } from '../../shared/services/auftrag.service';
+import { PaginationService } from '../../shared/utils/pagination.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-uebersicht',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-  ],
   templateUrl: './uebersicht.component.html',
-  styleUrls: ['./uebersicht.component.css']
+  styleUrls: ['./uebersicht.component.css'],
+  standalone: false
 })
 export class UebersichtComponent implements OnInit, AfterViewInit {
-  offeneAuftraegeDisplayedColumns: string[] = ['auftragId', 'kennzeichen', 'marke', 'fahrtuechtig', 'standort', 'erstelltAm'];
-  terminierteAuftraegeDisplayedColumns: string[] = ['auftragId', 'kennzeichen', 'marke', 'abgabeTermin', 'abgabeOrt', 'abgabeBestaetigt'];
-  inBearbeitungAuftraegeDisplayedColumns: string[] = ['auftragId', 'kennzeichen', 'marke', 'bearbeiter', 'reparaturStart'];
+  @ViewChildren(MatPaginator) paginators!: QueryList<MatPaginator>;
+  userRole: string = '';
+  userEmail: string = '';
 
-  offeneAuftraegeDataSource = new MatTableDataSource<any>([]);
-  terminierteAuftraegeDataSource = new MatTableDataSource<any>([]);
-  inBearbeitungAuftraegeDataSource = new MatTableDataSource<any>([]);
+  tableConfig = [
+    {
+      key: 'offene',
+      title: 'Offene Aufträge',
+      displayedColumns: ['auftragId', 'kennzeichen', 'marke', 'fahrtuechtig', 'standort', 'erstelltAm'],
+      dataSource: new MatTableDataSource<any>([]),
+    },
+    {
+      key: 'terminierte',
+      title: 'Terminierte Aufträge',
+      displayedColumns: ['auftragId', 'kennzeichen', 'marke', 'abgabeDatum', 'abgabeOrt', 'abgabeBestaetigt'],
+      dataSource: new MatTableDataSource<any>([]),
+    },
+    {
+      key: 'inBearbeitung',
+      title: 'In Bearbeitung Aufträge',
+      displayedColumns: ['auftragId', 'kennzeichen', 'marke', 'bearbeiter', 'reparaturStart'],
+      dataSource: new MatTableDataSource<any>([]),
+    },
+  ];
 
-  @ViewChild(MatPaginator) offeneAuftraegePaginator!: MatPaginator;
-  @ViewChild(MatPaginator) terminierteAuftraegePaginator!: MatPaginator;
-  @ViewChild(MatPaginator) inBearbeitungAuftraegePaginator!: MatPaginator;
-
-  constructor(private auftraegeService: AuftraegeService) {}
+  constructor(
+    private auftragService: AuftragService,
+    private paginationService: PaginationService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    // Lade die echten Aufträge aus dem AuftraegeService
-    this.loadOffeneAuftraege();
-    this.loadTerminierteAuftraege();
-    this.loadInBearbeitungAuftraege();
+    this.loadUserDetails();
   }
 
   ngAfterViewInit() {
-    this.initializeTable(this.offeneAuftraegeDataSource, this.offeneAuftraegePaginator);
-    this.initializeTable(this.terminierteAuftraegeDataSource, this.terminierteAuftraegePaginator);
-    this.initializeTable(this.inBearbeitungAuftraegeDataSource, this.inBearbeitungAuftraegePaginator);
+    this.paginators.toArray().forEach((paginator, index) => {
+      const table = this.tableConfig[index];
+      this.initializePaginator(table.dataSource, paginator);
+    });
   }
 
-  loadOffeneAuftraege() {
-    // Hole die offenen Aufträge vom Service und setze sie in die DataSource
-    const offeneAuftraege = this.auftraegeService.getOffeneAuftraege();// Verwende die Methode deines Services, die offene Aufträge liefert
-    this.offeneAuftraegeDataSource.data = offeneAuftraege;
-  }
+  private loadUserDetails(): void {
+    const token = this.authService.getToken();
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        this.userEmail = decodedToken.sub; // E-Mail-Adresse aus dem Token holen
+        this.userRole = decodedToken.department;
 
-  loadTerminierteAuftraege() {
-    const terminierteAuftraege = this.auftraegeService.getTerminierteAuftraege()
-    this.terminierteAuftraegeDataSource.data = terminierteAuftraege;
-  }
-
-  loadInBearbeitungAuftraege() {
-    const inBearbeitungAuftraege = this.auftraegeService.getInBearbeitungAuftraege();
-    this.inBearbeitungAuftraegeDataSource.data = inBearbeitungAuftraege;
-  }
-
-  initializeTable(dataSource: MatTableDataSource<any>, paginator: MatPaginator) {
-    const PLACEHOLDER_ROWS = 3;
-    const filledData = [...dataSource.data];
-    while (filledData.length < PLACEHOLDER_ROWS) {
-      filledData.push({
-        auftragId: null,
-        kennzeichen: null,
-        marke: null,
-        fahrtuechtig: null, // Platzhalter für boolean
-        standort: null,
-        erstelltAm: null,
-      });
+        // Daten erst nach Laden der Benutzerinformationen abrufen
+        this.tableConfig.forEach((table) => this.loadData(table.key, this.getStatusForKey(table.key)));
+      } catch (error) {
+        console.error('Fehler beim Dekodieren des Tokens:', error);
+      }
     }
-    dataSource.data = filledData;
+  }
+
+  private loadData(key: string, status: string) {
+    const table = this.tableConfig.find((t) => t.key === key);
+    if (table) {
+      this.auftragService.getAuftraegeByStatus(status).subscribe(
+        (data) => {
+          if (this.userRole === 'Fahrer') {
+            data = data.filter((auftrag) => auftrag.email === this.userEmail);
+          }
+          const placeholdersNeeded = Math.max(0, 3 - data.length);
+          const placeholderRows = Array(placeholdersNeeded).fill(this.createPlaceholder(key));
+          table.dataSource.data = [...data, ...placeholderRows];
+        },
+        (error) => {
+          console.error(`Fehler beim Laden der ${key}-Aufträge:`, error);
+        }
+      );
+    }
+  }
+
+  private createPlaceholder(key: string): any {
+    const placeholders: any = {
+      auftragId: null,
+      kennzeichen: null,
+      marke: null,
+    };
+
+    if (key === 'terminierte') {
+      placeholders.abgabeOrt = null;
+      placeholders.abgabeBestaetigt = null;
+    } else if (key === 'inBearbeitung') {
+      placeholders.bearbeiter = null;
+      placeholders.reparaturStart = null;
+    }
+
+    return placeholders;
+  }
+
+  private initializePaginator(dataSource: MatTableDataSource<any>, paginator: MatPaginator) {
     dataSource.paginator = paginator;
+    this.paginationService.initializeTable(dataSource, paginator, 3);
+  }
+
+  private getStatusForKey(key: string): string {
+    switch (key) {
+      case 'offene':
+        return 'offen';
+      case 'terminierte':
+        return 'terminiert';
+      case 'inBearbeitung':
+        return 'in-bearbeitung';
+      default:
+        return '';
+    }
   }
 }

@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="detail-ansicht weiter implementiert (unvollstaendig)">
+    <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="nur noch email benachrichtigungen implementieren uebrig">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/626a5249-61ae-432c-99ba-1bb18256405a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/626a5249-61ae-432c-99ba-1bb18256405a.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/626a5249-61ae-432c-99ba-1bb18256405a/storage_v2/_src_/database/schadenmeldesystem.ICFoYg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/626a5249-61ae-432c-99ba-1bb18256405a/storage_v2/_src_/database/schadenmeldesystem.ICFoYg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/services/auftraege.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/services/auftraege.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/AuftragController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/AuftragController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/AuthController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/service/AuftragService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/service/AuftragService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,10 +47,20 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="TypeScript File" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="check4" />
+        <entry key="$PROJECT_DIR$" value="check17" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,9 +74,12 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Ademdkr/schadenmeldesystem.git&quot;,
-    &quot;accountId&quot;: &quot;f70058c0-886d-42de-a9f5-b08fd7948672&quot;
+    &quot;accountId&quot;: &quot;6b654d09-1e8d-4940-82d7-66d1c2cfbdb4&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -75,6 +92,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.Build backend.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
     &quot;JavaScript Debug.Angular Application (frontend).executor&quot;: &quot;Run&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
@@ -84,9 +102,10 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;check5&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;check18&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Adem/Desktop/Dev/Java/schadenmeldesystem&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -95,8 +114,9 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.Angular CLI Server (frontend).executor&quot;: &quot;Run&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.23333333&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.31724137&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Adem\\Desktop\\Dev\\Java\\schadenmeldesystem\\frontend\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -104,17 +124,36 @@
     &quot;ChangesTree.GroupingKeys&quot;: [
       &quot;directory&quot;,
       &quot;module&quot;
+    ],
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;,
+      &quot;postgresql&quot;,
+      &quot;mysql&quot;
     ]
   }
 }</component>
-  <component name="RunManager" selected="npm.Angular CLI Server (frontend)">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Adem\Desktop\Dev\Java\schadenmeldesystem\frontend\src\app\shared" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="org.example.backend.entity" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.BackendApplication">
     <configuration name="Angular Application (frontend)" type="JavascriptDebugType" uri="http://localhost:4200">
       <method v="2" />
     </configuration>
-    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="backend.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.backend.BackendApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.backend.BackendApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.backend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -129,6 +168,19 @@
       <envs />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.BackendApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.153" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.153" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -146,7 +198,38 @@
       <workItem from="1736955321886" duration="19734000" />
       <workItem from="1737055943813" duration="12104000" />
       <workItem from="1737121073124" duration="13766000" />
-      <workItem from="1737141537442" duration="4559000" />
+      <workItem from="1737141537442" duration="5415000" />
+      <workItem from="1737147031825" duration="9813000" />
+      <workItem from="1737305100451" duration="10860000" />
+      <workItem from="1737384042022" duration="18058000" />
+      <workItem from="1737405789318" duration="600000" />
+      <workItem from="1737406955783" duration="1709000" />
+      <workItem from="1737408974090" duration="1212000" />
+      <workItem from="1737410213280" duration="42000" />
+      <workItem from="1737410267226" duration="189000" />
+      <workItem from="1737412474786" duration="594000" />
+      <workItem from="1737413610012" duration="114000" />
+      <workItem from="1737413787123" duration="447000" />
+      <workItem from="1737414235907" duration="65000" />
+      <workItem from="1737487859726" duration="453000" />
+      <workItem from="1737490387771" duration="103000" />
+      <workItem from="1737491746768" duration="538000" />
+      <workItem from="1737494524534" duration="7692000" />
+      <workItem from="1737547062698" duration="13000" />
+      <workItem from="1737547805261" duration="262000" />
+      <workItem from="1737548077087" duration="41000" />
+      <workItem from="1737548138558" duration="2575000" />
+      <workItem from="1737643561925" duration="26443000" />
+      <workItem from="1737725443128" duration="20427000" />
+      <workItem from="1737918465892" duration="16559000" />
+      <workItem from="1737998945876" duration="46000" />
+      <workItem from="1737999023827" duration="55000" />
+      <workItem from="1738001637048" duration="21649000" />
+      <workItem from="1738065584875" duration="2155000" />
+      <workItem from="1738072200173" duration="24988000" />
+      <workItem from="1738172189911" duration="17940000" />
+      <workItem from="1738247981888" duration="11378000" />
+      <workItem from="1738266115707" duration="742000" />
     </task>
     <task id="LOCAL-00001" summary="angular material initialized">
       <option name="closed" value="true" />
@@ -196,14 +279,128 @@
       <option name="project" value="LOCAL" />
       <updated>1737139173254</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="detail-ansicht weiter implementiert (unvollstaendig)">
+      <option name="closed" value="true" />
+      <created>1737146202360</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1737146202360</updated>
+    </task>
+    <task id="LOCAL-00008" summary="detail-ansicht implementiert (vollstaendig)">
+      <option name="closed" value="true" />
+      <created>1737146257916</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1737146257918</updated>
+    </task>
+    <task id="LOCAL-00009" summary="angular-material imports zentralisiert">
+      <option name="closed" value="true" />
+      <created>1737155103163</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1737155103163</updated>
+    </task>
+    <task id="LOCAL-00010" summary="backend entwicklung gestartet">
+      <option name="closed" value="true" />
+      <created>1737389588194</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1737389588194</updated>
+    </task>
+    <task id="LOCAL-00011" summary="backend entwicklung gestartet">
+      <option name="closed" value="true" />
+      <created>1737407438290</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1737407438290</updated>
+    </task>
+    <task id="LOCAL-00012" summary="angular standard statt standalone">
+      <option name="closed" value="true" />
+      <created>1737572898938</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737572898938</updated>
+    </task>
+    <task id="LOCAL-00013" summary="angular standard statt standalone">
+      <option name="closed" value="true" />
+      <created>1737656834724</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737656834724</updated>
+    </task>
+    <task id="LOCAL-00014" summary="nur noch auftrag-detail kommunikation uebrig">
+      <option name="closed" value="true" />
+      <created>1737673493215</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1737673493215</updated>
+    </task>
+    <task id="LOCAL-00015" summary="nur noch auftrag-detail kommunikation uebrig">
+      <option name="closed" value="true" />
+      <created>1737751520883</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1737751520883</updated>
+    </task>
+    <task id="LOCAL-00016" summary="codeoptimierung nötig">
+      <option name="closed" value="true" />
+      <created>1737936761322</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1737936761322</updated>
+    </task>
+    <task id="LOCAL-00017" summary="codeoptimierung nötig">
+      <option name="closed" value="true" />
+      <created>1738025028675</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1738025028675</updated>
+    </task>
+    <task id="LOCAL-00018" summary="auth ohne jwt implementiert mit geschützten routen">
+      <option name="closed" value="true" />
+      <created>1738091741149</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1738091741149</updated>
+    </task>
+    <task id="LOCAL-00019" summary="nur noch email benachrichtigungen implementieren uebrig">
+      <option name="closed" value="true" />
+      <created>1738254780800</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1738254780800</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="first" />
     <MESSAGE value="angular material initialized" />
     <MESSAGE value="sidenav- und uebersicht-Oberflaechen implementiert" />
     <MESSAGE value="sidenav- &amp; uebersicht-Oberflaechen implementiert" />
@@ -211,6 +408,20 @@
     <MESSAGE value="detail-ansicht implementiert (unvollstaendig)" />
     <MESSAGE value="detail-ansicht weiter implementiert (fast komplett)" />
     <MESSAGE value="detail-ansicht weiter implementiert (unvollstaendig)" />
-    <option name="LAST_COMMIT_MESSAGE" value="detail-ansicht weiter implementiert (unvollstaendig)" />
+    <MESSAGE value="detail-ansicht implementiert (vollstaendig)" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/check6' into check6" />
+    <MESSAGE value="angular-material imports zentralisiert" />
+    <MESSAGE value="backend entwicklung gestartet" />
+    <MESSAGE value="first" />
+    <MESSAGE value="Auftrag Tabelle in Datenbank erstellt" />
+    <MESSAGE value="eintraege über auftrag-erstellen ins backend funktioniert" />
+    <MESSAGE value="angular standard statt standalone" />
+    <MESSAGE value="backend kommunikation fast komplett, code optimierung uebrig" />
+    <MESSAGE value="nur noch auftrag-detail kommunikation uebrig" />
+    <MESSAGE value="codeoptimierung im frontend durchgeführt" />
+    <MESSAGE value="codeoptimierung nötig" />
+    <MESSAGE value="auth ohne jwt implementiert mit geschützten routen" />
+    <MESSAGE value="nur noch email benachrichtigungen implementieren uebrig" />
+    <option name="LAST_COMMIT_MESSAGE" value="nur noch email benachrichtigungen implementieren uebrig" />
   </component>
 </project>
