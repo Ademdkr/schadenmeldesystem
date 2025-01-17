@@ -1,62 +1,82 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
+import {Component} from '@angular/core';
+import {AuftragService} from '../../shared/services/auftrag.service';
+import {Lkw} from '../../shared/models/lkw.model';
+import {LkwService} from '../../shared/services/lkw.service';
+import {Router} from '@angular/router'; // Importiere den Service
 
 @Component({
   selector: 'app-auftrag-erstellen',
   templateUrl: './auftrag-erstellen.component.html',
   styleUrls: ['./auftrag-erstellen.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatCardModule
-  ]
+  standalone: false
 })
 export class AuftragErstellenComponent {
   auftrag = {
     kennzeichen: '',
     beschreibung: '',
-    fahrttuechtig: null,
-    standort: ''
+    fahrtuechtig: null,
+    standort: '',
+    erstelltAm: new Date(),
+    status: "Offen",
+    vin: '',      // Fahrzeugdaten hinzufügen
+    marke: '',
+    modell: '',
+    baujahr: 0,
   };
 
-  // Simulierte Fahrzeugdaten
-  fahrzeuge = [
-    { kennzeichen: 'ABC123', vin: '1HGBH41JXMN109186', marke: 'BMW', modell: '320i', baujahr: 2018 },
-    { kennzeichen: 'DEF456', vin: '2HGBH41JXMN109187', marke: 'Audi', modell: 'A3', baujahr: 2020 },
-    { kennzeichen: 'GHI789', vin: '3HGBH41JXMN109188', marke: 'Mercedes', modell: 'C-Class', baujahr: 2019 }
-  ];
+  fahrzeug: Lkw | null = null;
 
-  fahrzeug: {
-    kennzeichen: string;
-    vin: string;
-    marke: string;
-    modell: string;
-    baujahr: number;
-  } | null = null; // Das Fahrzeug, das dem Kennzeichen entspricht
-
-  // Methode, um das Fahrzeug anhand des Kennzeichens zu suchen
-  findVehicle() {
-    this.fahrzeug = this.fahrzeuge.find(vehicle => vehicle.kennzeichen === this.auftrag.kennzeichen) || null;
+  constructor(
+    private auftragService: AuftragService,
+    private lkwService: LkwService,
+    private router: Router) {
   }
 
-  // Methode zum Absenden des Formulars (Platzhalter)
+  // Fahrzeug anhand des Kennzeichens suchen
+  findVehicle() {
+    if (this.auftrag.kennzeichen) {
+      this.lkwService.getVehicleByKennzeichen(this.auftrag.kennzeichen).subscribe({
+        next: (fahrzeug: Lkw) => {
+          this.fahrzeug = fahrzeug;
+        },
+        error: () => {
+          this.fahrzeug = null;
+          console.log('Kein Fahrzeug gefunden!');
+        }
+      });
+    }
+  }
+
+  isFormValid(): false | string {
+    return !!this.fahrzeug &&
+      this.auftrag.beschreibung &&
+      this.auftrag.fahrtuechtig !== null &&
+      this.auftrag.standort;
+  }
+
   onSubmit() {
     if (this.fahrzeug) {
-      console.log('Reparaturauftrag erstellt:', this.auftrag);
-      // Hier könnte der Code zum Erstellen des Auftrags an das Backend hinzugefügt werden
+      this.auftrag = {
+        ...this.auftrag,
+        vin: this.fahrzeug.vin,
+        marke: this.fahrzeug.marke,
+        modell: this.fahrzeug.modell,
+        baujahr: this.fahrzeug.baujahr,
+        erstelltAm: new Date()// YYYY-MM-DD
+      };
+      this.auftragService.createAuftrag(this.auftrag).subscribe({
+        next: (response) => {
+          console.log('Auftrag erfolgreich erstellt:', response);
+          // Weiterleitung zur Hauptseite
+          this.router.navigate(['/']); // Passe den Pfad zur Hauptseite an
+        },
+        error: (err) => {
+          console.error('Fehler beim Erstellen des Auftrags:', err);
+          alert('Fehler beim Erstellen des Auftrags. Bitte erneut versuchen.');
+        }
+      });
     } else {
-      console.log('Kein Fahrzeug gefunden!');
+      alert('Kein Fahrzeug gefunden! Auftrag konnte nicht erstellt werden.');
     }
   }
 }

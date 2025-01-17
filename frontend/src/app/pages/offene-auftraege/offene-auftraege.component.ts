@@ -1,36 +1,34 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import {Router, RouterLink} from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { AuftraegeService } from '../../shared/services/auftraege.service'; // Passe den Pfad bei Bedarf an
+import {Component, ViewChild, AfterViewInit, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuftragService} from '../../shared/services/auftrag.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {Auftrag} from '../../shared/models/auftrag.model'; // Passe den Pfad bei Bedarf an
 
 @Component({
   selector: 'app-offene-auftraege',
-  standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, RouterLink],
   templateUrl: './offene-auftraege.component.html',
   styleUrls: ['./offene-auftraege.component.css'],
+  standalone: false,
 })
 export class OffeneAuftraegeComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'auftragId',
     'kennzeichen',
     'marke',
-    'fahrttauglich',
+    'fahrtuechtig',
     'standort',
     'erstelltAm',
   ];
-  offeneAuftraegeDataSource = new MatTableDataSource<any>([]);
+  offeneAuftraegeDataSource = new MatTableDataSource<Auftrag>([]);
 
   @ViewChild(MatPaginator) offeneAuftraegePaginator!: MatPaginator;
 
   constructor(
-    private auftraegeService: AuftraegeService,
+    private auftragService: AuftragService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.loadOffeneAuftraege();
@@ -41,10 +39,30 @@ export class OffeneAuftraegeComponent implements OnInit, AfterViewInit {
   }
 
   loadOffeneAuftraege() {
-    // Hole die offenen Aufträge vom Service und setze sie in die DataSource
-    const offeneAuftraege = this.auftraegeService.getOffeneAuftraege();
-    this.offeneAuftraegeDataSource.data = offeneAuftraege;
+    this.auftragService.getOffeneAuftraege2().subscribe(
+      (data) => {
+        // Datum und Uhrzeit im deutschen Format umwandeln
+        data.forEach(auftrag => {
+          if (auftrag.erstelltAm) {
+            const date = new Date(auftrag.erstelltAm);
+            auftrag.erstelltAm = date.toLocaleString('de-DE', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false // 24-Stunden Format
+            });
+          }
+        });
+        this.offeneAuftraegeDataSource.data = data;
+      },
+      (error) => {
+        console.error('Fehler beim Laden der offenen Aufträge', error);
+      }
+    );
   }
+
 
   initializeTable(dataSource: MatTableDataSource<any>, paginator: MatPaginator) {
     const PLACEHOLDER_ROWS = 10;
@@ -62,9 +80,4 @@ export class OffeneAuftraegeComponent implements OnInit, AfterViewInit {
     dataSource.data = filledData;
     dataSource.paginator = paginator;
   }
-
-/*  navigateToDetail(auftragId: number) {
-    // Navigiere zur Detailansicht
-    this.router.navigate(['/auftrag-detail', auftragId]);
-  }*/
 }

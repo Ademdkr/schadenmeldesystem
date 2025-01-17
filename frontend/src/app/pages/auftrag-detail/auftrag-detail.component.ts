@@ -1,35 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { NgIf } from '@angular/common';
-import { AuftraegeService } from '../../shared/services/auftraege.service';
-import {MatCheckbox} from '@angular/material/checkbox';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuftragService} from '../../shared/services/auftrag.service';
 
 @Component({
   selector: 'app-auftrag-detail',
   templateUrl: './auftrag-detail.component.html',
   styleUrls: ['./auftrag-detail.component.css'],
-  imports: [
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonModule,
-    MatDividerModule,
-    FormsModule,
-    NgIf,
-    MatCheckbox,
-  ],
+  standalone: false,
 })
 export class AuftragDetailComponent implements OnInit {
   auftragId: number | null = null;
@@ -39,8 +16,10 @@ export class AuftragDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private auftraegeService: AuftraegeService
-  ) {}
+    private auftragService: AuftragService,
+    private router: Router,
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -54,40 +33,128 @@ export class AuftragDetailComponent implements OnInit {
 
   loadAuftragDetails(): void {
     if (this.auftragId !== null) {
-      // Suche zuerst in offenen Aufträgen
-      this.auftrag = this.auftraegeService.getOffeneAuftraege()
-          .find((auftrag) => auftrag.auftragId === this.auftragId)
-        ||
-        // Wenn nicht gefunden, suche in terminierten Aufträgen
-        this.auftraegeService.getTerminierteAuftraege()
-          .find((auftrag) => auftrag.auftragId === this.auftragId)
-        ||
-        // Wenn nicht gefunden, suche in weiteren Kategorien
-        this.auftraegeService.getInBearbeitungAuftraege()
-          .find((auftrag) => auftrag.auftragId === this.auftragId)
-        ||
-        this.auftraegeService.getAbgeschlosseneAuftraege()
-          .find((auftrag) => auftrag.auftragId === this.auftragId)
-        ||
-        {}; // Fallback auf leeres Objekt
+      this.auftragService.getAuftragById2(this.auftragId).subscribe(
+        (data) => {
+          this.auftrag = data;
+          if (data.erstelltAm) {
+            const date = new Date(data.erstelltAm);
+            data.erstelltAm = date.toLocaleString('de-DE', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false // 24-Stunden Format
+            });
+          }
 
-      // Fahrzeugdaten laden, falls vorhanden
-      this.fahrzeug = this.auftraegeService.getFahrzeugByAuftragId(this.auftragId);
+          // Wenn das Abgabe Datum ein String ist, konvertiere es zu einem Date-Objekt
+          if (data.abgabeDatum) {
+            this.auftrag.abgabeDatum = new Date(data.abgabeDatum);
+          }
+          // Fahrzeugdaten direkt aus dem Auftrag laden
+          this.fahrzeug = {
+            vin: this.auftrag.vin,
+            marke: this.auftrag.marke,
+            modell: this.auftrag.modell,
+            baujahr: this.auftrag.baujahr,
+          };
+        },
+        (error) => {
+          console.error('Fehler beim Laden des Auftrags:', error);
+        }
+      );
     }
   }
 
+
   terminieren(): void {
-    console.log('Auftrag wurde terminiert:', this.auftrag);
-    // Status ändern, weitere Logik hinzufügen
+    if (!this.auftrag.abgabeOrt || !this.auftrag.abgabeDatum) {
+      console.error('Abgabe Ort und Abgabe Datum müssen ausgefüllt sein.');
+      return;
+    }
+
+    if (this.auftragId !== null) {
+      const body = {
+        status: 'Terminiert',
+        abgabeOrt: this.auftrag.abgabeOrt,
+        abgabeDatum: this.auftrag.abgabeDatum,
+        abgabeBestaetigt: false // Setze abgabeBestaetigt auf false
+      };
+
+      this.auftragService.updateAuftragStatus(this.auftragId, body).subscribe(
+        (response) => {
+          console.log('Auftrag wurde terminiert:', response);
+          this.auftrag.status = 'Terminiert'; // Lokale Aktualisierung des Status
+          this.auftrag.abgabeBestaetigt = false; // Lokale Aktualisierung von abgabeBestaetigt
+          // Weiterleitung zur Hauptseite
+          this.router.navigate(['/']); // Passe den Pfad zur Hauptseite an
+        },
+        (error) => {
+          console.error('Fehler beim Terminieren des Auftrags:', error);
+        }
+      );
+    }
+  }
+
+
+  abgabeBestaetigen(event: any): void {
+    if (event.checked && this.auftragId !== null) {
+      const body = {abgabeBestaetigt: true};
+
+      this.auftragService.updateAuftragAbgabeBestaetigt(this.auftragId, body).subscribe(
+        (response) => {
+          console.log('Abgabe wurde bestätigt:', response);
+          this.auftrag.abgabeBestaetigt = true; // Lokale Aktualisierung
+        },
+        (error) => {
+          console.error('Fehler bei der Abgabebestätigung:', error);
+        }
+      );
+    }
   }
 
   startBearbeitung(): void {
-    console.log('Bearbeitung gestartet:', this.auftrag);
-    // Status ändern, weitere Logik hinzufügen
+    if (this.auftragId !== null) {
+      const body = {
+        status: 'In Bearbeitung',
+        reparaturStart: new Date().toISOString() // Aktuelles Datum und Uhrzeit
+      };
+
+      this.auftragService.updateAuftragStatus(this.auftragId, body).subscribe(
+        (response) => {
+          console.log('Bearbeitung gestartet:', response);
+          this.auftrag.status = 'In Bearbeitung';
+          this.auftrag.reparaturStart = body.reparaturStart; // Lokale Aktualisierung
+          // Weiterleitung zur Hauptseite
+          this.router.navigate(['/']); // Passe den Pfad zur Hauptseite an
+        },
+        (error) => {
+          console.error('Fehler beim Start der Bearbeitung:', error);
+        }
+      );
+    }
   }
 
   endBearbeitung(): void {
-    console.log('Bearbeitung beendet:', this.auftrag);
-    // Status ändern, weitere Logik hinzufügen
+    if (this.auftragId !== null) {
+      const body = {
+        status: 'Abgeschlossen',
+        reparaturEnde: new Date().toISOString() // Aktuelles Datum und Uhrzeit
+      };
+
+      this.auftragService.updateAuftragStatus(this.auftragId, body).subscribe(
+        (response) => {
+          console.log('Bearbeitung gestartet:', response);
+          this.auftrag.status = 'Abgeschlossen';
+          this.auftrag.reparaturEnde = body.reparaturEnde; // Lokale Aktualisierung
+          // Weiterleitung zur Hauptseite
+          this.router.navigate(['/']); // Passe den Pfad zur Hauptseite an
+        },
+        (error) => {
+          console.error('Fehler beim Start der Bearbeitung:', error);
+        }
+      );
+    }
   }
 }

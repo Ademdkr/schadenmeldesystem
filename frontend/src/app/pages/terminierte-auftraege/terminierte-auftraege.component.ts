@@ -1,36 +1,35 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { Router, RouterLink } from '@angular/router';
-import { AuftraegeService } from '../../shared/services/auftraege.service';
+import {Component, ViewChild, AfterViewInit, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuftragService} from '../../shared/services/auftrag.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {Auftrag} from '../../shared/models/auftrag.model';
+
 
 @Component({
   selector: 'app-terminierte-auftraege',
-  standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, RouterLink],
   templateUrl: './terminierte-auftraege.component.html',
   styleUrls: ['./terminierte-auftraege.component.css'],
+  standalone: false,
 })
 export class TerminierteAuftraegeComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'auftragId',
     'kennzeichen',
     'marke',
-    'abgabeTermin',
+    'abgabeDatum',
     'abgabeOrt',
     'abgabeBestaetigt'
   ];
-  terminierteAuftraegeDataSource = new MatTableDataSource<any>([]);
+  terminierteAuftraegeDataSource = new MatTableDataSource<Auftrag>([]);
 
   @ViewChild(MatPaginator) terminierteAuftraegePaginator!: MatPaginator;
 
   constructor(
-    private auftraegeService: AuftraegeService,
+    private auftragService: AuftragService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.loadTerminierteAuftraege();
@@ -41,9 +40,22 @@ export class TerminierteAuftraegeComponent implements AfterViewInit, OnInit {
   }
 
   loadTerminierteAuftraege() {
-    const terminierteAuftraege = this.auftraegeService.getTerminierteAuftraege();
-    this.terminierteAuftraegeDataSource.data = terminierteAuftraege;
+    this.auftragService.getTerminierteAuftraege2().subscribe(
+      (data) => {
+        this.terminierteAuftraegeDataSource.data = data.map((auftrag) => ({
+          ...auftrag,
+          abgabeDatum: auftrag.abgabeDatum
+            ? new Date(auftrag.abgabeDatum).toLocaleDateString('de-DE') // Formatierung des Datums
+            : undefined, // Konvertierung von null zu undefined
+        }));
+      },
+      (error) => {
+        console.error('Fehler beim Laden der terminierten Aufträge', error);
+      }
+    );
   }
+
+
 
   initializeTable(dataSource: MatTableDataSource<any>, paginator: MatPaginator) {
     const PLACEHOLDER_ROWS = 10;
@@ -53,7 +65,7 @@ export class TerminierteAuftraegeComponent implements AfterViewInit, OnInit {
         auftragId: null,
         kennzeichen: null,
         marke: null,
-        abgabeTermin: null,
+        abgabeDatum: null,
         abgabeOrt: null,
         abgabeBestaetigt: null,
       });
