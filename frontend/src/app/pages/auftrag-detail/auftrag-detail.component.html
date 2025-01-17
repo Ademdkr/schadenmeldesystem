@@ -60,7 +60,7 @@
 
   <!-- Auftrag terminieren Überschrift -->
   <h2 class="terminieren-header">
-    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' ? 'Termin' : 'Auftrag Terminieren' }}
+    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen' ? 'Termin' : 'Auftrag Terminieren' }}
   </h2>
 
   <!-- Abgabe Ort -->
@@ -75,7 +75,8 @@
   <!-- Abgabe Datum -->
   <mat-form-field appearance="fill">
     <mat-label>Abgabe Datum</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="auftrag.abgabeDatum"
+    <input matInput [matDatepicker]="picker"
+           [(ngModel)]="auftrag.abgabeDatum"
            [disabled]="auftrag?.status !== 'Offen'"/>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
@@ -83,7 +84,9 @@
 
   <!-- Button Bearbeitung Starten -->
   <div *ngIf="auftrag?.status === 'Offen'" class="button-section">
-    <button mat-raised-button color="primary" (click)="terminieren()">Terminieren</button>
+    <button mat-raised-button color="primary" (click)="terminieren()"
+            [disabled]="!auftrag.abgabeOrt || !auftrag.abgabeDatum">Terminieren
+    </button>
   </div>
 
 
@@ -102,7 +105,8 @@
     <!-- Checkbox für Abgabe -->
     <mat-checkbox
       [(ngModel)]="auftrag.abgabeBestaetigt"
-      [disabled]="auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'">
+      (change)="abgabeBestaetigen($event)"
+      [disabled]="auftrag.abgabeBestaetigt || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen'">
       Bestätigung, dass der LKW am Abgabeort zur Verfügung gestellt wurde.
     </mat-checkbox>
 
@@ -110,7 +114,9 @@
 
   <!-- Button Bearbeitung Starten -->
   <div *ngIf="auftrag?.status === 'Terminiert'" class="button-section">
-    <button mat-raised-button color="primary" (click)="startBearbeitung()">Bearbeitung Starten</button>
+    <button mat-raised-button color="primary" (click)="startBearbeitung()" [disabled]="!auftrag.abgabeBestaetigt">
+      Bearbeitung Starten
+    </button>
   </div>
 
   <!-- Neue Trennung -->
@@ -132,11 +138,12 @@
 
     <!-- Reparatur Start -->
     <p class="info-text">
-      <strong>Reparatur Start:</strong> {{ auftrag?.reparaturStart || '-' }}
+      <strong>Reparatur Start:</strong> {{ auftrag?.reparaturStart | date: 'dd.MM.yyyy HH:mm' }}
     </p>
 
+
     <p class="info-text">
-      <strong>Reparatur Ende:</strong> {{ auftrag?.reparaturEnde || '-' }}
+      <strong>Reparatur Ende:</strong> {{ auftrag?.reparaturEnde | date: 'dd.MM.yyyy HH:mm' }}
     </p>
 
     <!-- Button Bearbeitung Beenden -->
