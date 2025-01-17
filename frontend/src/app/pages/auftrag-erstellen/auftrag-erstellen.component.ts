@@ -1,36 +1,21 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
+import { AuftragService } from '../../shared/services/auftrag.service'; // Importiere den Service
 
 @Component({
   selector: 'app-auftrag-erstellen',
   templateUrl: './auftrag-erstellen.component.html',
   styleUrls: ['./auftrag-erstellen.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatCardModule
-  ]
+  standalone: false
 })
 export class AuftragErstellenComponent {
   auftrag = {
     kennzeichen: '',
     beschreibung: '',
-    fahrttuechtig: null,
-    standort: ''
+    fahrtuechtig: null,
+    standort: '',
+    erstelltAm: ''
   };
 
-  // Simulierte Fahrzeugdaten
   fahrzeuge = [
     { kennzeichen: 'ABC123', vin: '1HGBH41JXMN109186', marke: 'BMW', modell: '320i', baujahr: 2018 },
     { kennzeichen: 'DEF456', vin: '2HGBH41JXMN109187', marke: 'Audi', modell: 'A3', baujahr: 2020 },
@@ -43,20 +28,31 @@ export class AuftragErstellenComponent {
     marke: string;
     modell: string;
     baujahr: number;
-  } | null = null; // Das Fahrzeug, das dem Kennzeichen entspricht
+  } | null = null;
 
-  // Methode, um das Fahrzeug anhand des Kennzeichens zu suchen
+  constructor(private auftragService: AuftragService) {} // Service injizieren
+
   findVehicle() {
     this.fahrzeug = this.fahrzeuge.find(vehicle => vehicle.kennzeichen === this.auftrag.kennzeichen) || null;
   }
 
-  // Methode zum Absenden des Formulars (Platzhalter)
   onSubmit() {
     if (this.fahrzeug) {
-      console.log('Reparaturauftrag erstellt:', this.auftrag);
-      // Hier könnte der Code zum Erstellen des Auftrags an das Backend hinzugefügt werden
+      this.auftrag['erstelltAm'] = new Date().toISOString().split('T')[0]; // YYYY-MM-DD Format
+      this.auftragService.createAuftrag(this.auftrag).subscribe({
+        next: (response) => {
+          console.log('Auftrag erfolgreich erstellt:', response);
+          alert('Auftrag wurde erfolgreich erstellt!');
+        },
+        error: (err) => {
+          console.error('Fehler beim Erstellen des Auftrags:', err);
+          alert('Fehler beim Erstellen des Auftrags. Bitte erneut versuchen.');
+        }
+      });
     } else {
       console.log('Kein Fahrzeug gefunden!');
+      alert('Kein Fahrzeug gefunden! Auftrag konnte nicht erstellt werden.');
     }
   }
+
 }

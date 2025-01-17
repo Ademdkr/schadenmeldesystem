@@ -1,18 +1,15 @@
-import {AfterViewInit, Component, ViewChild, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { AuftraegeService } from '../../shared/services/auftraege.service'; // Füge den Import des Services hinzu
+import {AfterViewInit, Component, ViewChild, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MaterialModule} from '../../shared/modules/material.module';
+import {AuftraegeService} from '../../shared/services/auftraege.service'; // Füge den Import des Services hinzu
+import {TableComponent} from '../../shared/components/table/table.component';
 
 @Component({
   selector: 'app-uebersicht',
   standalone: true,
   imports: [
-    CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
+    MaterialModule, TableComponent
   ],
   templateUrl: './uebersicht.component.html',
   styleUrls: ['./uebersicht.component.css']
@@ -26,55 +23,58 @@ export class UebersichtComponent implements OnInit, AfterViewInit {
   terminierteAuftraegeDataSource = new MatTableDataSource<any>([]);
   inBearbeitungAuftraegeDataSource = new MatTableDataSource<any>([]);
 
-  @ViewChild(MatPaginator) offeneAuftraegePaginator!: MatPaginator;
-  @ViewChild(MatPaginator) terminierteAuftraegePaginator!: MatPaginator;
-  @ViewChild(MatPaginator) inBearbeitungAuftraegePaginator!: MatPaginator;
+  @ViewChildren(MatPaginator) paginators!: QueryList<MatPaginator>;
 
-  constructor(private auftraegeService: AuftraegeService) {}
+  constructor(private auftraegeService: AuftraegeService) {
+  }
 
   ngOnInit() {
     // Lade die echten Aufträge aus dem AuftraegeService
-    this.loadOffeneAuftraege();
-    this.loadTerminierteAuftraege();
-    this.loadInBearbeitungAuftraege();
+    this.loadData('offene', this.offeneAuftraegeDataSource, this.auftraegeService.getOffeneAuftraege());
+    this.loadData('terminierte', this.terminierteAuftraegeDataSource, this.auftraegeService.getTerminierteAuftraege());
+    this.loadData('inBearbeitung', this.inBearbeitungAuftraegeDataSource, this.auftraegeService.getInBearbeitungAuftraege());
   }
 
   ngAfterViewInit() {
-    this.initializeTable(this.offeneAuftraegeDataSource, this.offeneAuftraegePaginator);
-    this.initializeTable(this.terminierteAuftraegeDataSource, this.terminierteAuftraegePaginator);
-    this.initializeTable(this.inBearbeitungAuftraegeDataSource, this.inBearbeitungAuftraegePaginator);
+    const [offenePaginator, terminiertePaginator, inBearbeitungPaginator] = this.paginators.toArray();
+    this.initializePaginator(this.offeneAuftraegeDataSource, offenePaginator);
+    this.initializePaginator(this.terminierteAuftraegeDataSource, terminiertePaginator);
+    this.initializePaginator(this.inBearbeitungAuftraegeDataSource, inBearbeitungPaginator);
   }
 
-  loadOffeneAuftraege() {
-    // Hole die offenen Aufträge vom Service und setze sie in die DataSource
-    const offeneAuftraege = this.auftraegeService.getOffeneAuftraege();// Verwende die Methode deines Services, die offene Aufträge liefert
-    this.offeneAuftraegeDataSource.data = offeneAuftraege;
+  private loadData(
+    type: string,
+    dataSource: MatTableDataSource<any>,
+    data: any[]
+  ) {
+    dataSource.data = data;
+    this.fillPlaceholderRows(type, dataSource);
   }
 
-  loadTerminierteAuftraege() {
-    const terminierteAuftraege = this.auftraegeService.getTerminierteAuftraege()
-    this.terminierteAuftraegeDataSource.data = terminierteAuftraege;
-  }
-
-  loadInBearbeitungAuftraege() {
-    const inBearbeitungAuftraege = this.auftraegeService.getInBearbeitungAuftraege();
-    this.inBearbeitungAuftraegeDataSource.data = inBearbeitungAuftraege;
-  }
-
-  initializeTable(dataSource: MatTableDataSource<any>, paginator: MatPaginator) {
+  private fillPlaceholderRows(type: string, dataSource: MatTableDataSource<any>) {
     const PLACEHOLDER_ROWS = 3;
     const filledData = [...dataSource.data];
+    const placeholder = this.createPlaceholder(type);
     while (filledData.length < PLACEHOLDER_ROWS) {
-      filledData.push({
-        auftragId: null,
-        kennzeichen: null,
-        marke: null,
-        fahrtuechtig: null, // Platzhalter für boolean
-        standort: null,
-        erstelltAm: null,
-      });
+      filledData.push(placeholder);
     }
     dataSource.data = filledData;
+  }
+
+  private createPlaceholder(type: string): any {
+    return {
+      auftragId: null,
+      kennzeichen: null,
+      marke: null,
+      fahrtuechtig: null,
+      standort: null,
+      erstelltAm: null,
+      ...(type === 'terminierte' && { abgabeOrt: null, abgabeBestaetigt: null }),
+      ...(type === 'inBearbeitung' && { bearbeiter: null, reparaturStart: null }),
+    };
+  }
+
+  private initializePaginator(dataSource: MatTableDataSource<any>, paginator: MatPaginator) {
     dataSource.paginator = paginator;
   }
 }
