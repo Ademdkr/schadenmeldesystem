@@ -1,34 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { NgIf } from '@angular/common';
-import { AuftraegeService } from '../../shared/services/auftraege.service';
-import {MatCheckbox} from '@angular/material/checkbox';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
+import {MaterialModule} from '../../shared/modules/material.module';
+import {AuftraegeService} from '../../shared/services/auftraege.service';
 
 @Component({
   selector: 'app-auftrag-detail',
   templateUrl: './auftrag-detail.component.html',
   styleUrls: ['./auftrag-detail.component.css'],
   imports: [
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonModule,
-    MatDividerModule,
     FormsModule,
     NgIf,
-    MatCheckbox,
+    MaterialModule
   ],
 })
 export class AuftragDetailComponent implements OnInit {
@@ -40,7 +24,8 @@ export class AuftragDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private auftraegeService: AuftraegeService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -54,24 +39,14 @@ export class AuftragDetailComponent implements OnInit {
 
   loadAuftragDetails(): void {
     if (this.auftragId !== null) {
-      // Suche zuerst in offenen Aufträgen
-      this.auftrag = this.auftraegeService.getOffeneAuftraege()
-          .find((auftrag) => auftrag.auftragId === this.auftragId)
-        ||
-        // Wenn nicht gefunden, suche in terminierten Aufträgen
-        this.auftraegeService.getTerminierteAuftraege()
-          .find((auftrag) => auftrag.auftragId === this.auftragId)
-        ||
-        // Wenn nicht gefunden, suche in weiteren Kategorien
-        this.auftraegeService.getInBearbeitungAuftraege()
-          .find((auftrag) => auftrag.auftragId === this.auftragId)
-        ||
-        this.auftraegeService.getAbgeschlosseneAuftraege()
-          .find((auftrag) => auftrag.auftragId === this.auftragId)
-        ||
-        {}; // Fallback auf leeres Objekt
+      const alleAuftraege = [
+        ...this.auftraegeService.getOffeneAuftraege(),
+        ...this.auftraegeService.getTerminierteAuftraege(),
+        ...this.auftraegeService.getInBearbeitungAuftraege(),
+        ...this.auftraegeService.getAbgeschlosseneAuftraege(),
+      ];
 
-      // Fahrzeugdaten laden, falls vorhanden
+      this.auftrag = alleAuftraege.find((auftrag) => auftrag.auftragId === this.auftragId) || {};
       this.fahrzeug = this.auftraegeService.getFahrzeugByAuftragId(this.auftragId);
     }
   }
