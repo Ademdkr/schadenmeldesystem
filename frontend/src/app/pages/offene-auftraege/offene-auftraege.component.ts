@@ -1,16 +1,15 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import {Component, ViewChild, AfterViewInit, OnInit} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { AuftraegeService } from '../../shared/services/auftraege.service'; // Passe den Pfad bei Bedarf an
+import {MaterialModule} from '../../shared/modules/material.module';
+import {AuftraegeService} from '../../shared/services/auftraege.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator'; // Passe den Pfad bei Bedarf an
+import {TableComponent} from '../../shared/components/table/table.component';
 
 @Component({
   selector: 'app-offene-auftraege',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, RouterLink],
+  imports: [MaterialModule, TableComponent],
   templateUrl: './offene-auftraege.component.html',
   styleUrls: ['./offene-auftraege.component.css'],
 })
@@ -19,7 +18,7 @@ export class OffeneAuftraegeComponent implements OnInit, AfterViewInit {
     'auftragId',
     'kennzeichen',
     'marke',
-    'fahrttauglich',
+    'fahrtuechtig',
     'standort',
     'erstelltAm',
   ];
@@ -30,7 +29,8 @@ export class OffeneAuftraegeComponent implements OnInit, AfterViewInit {
   constructor(
     private auftraegeService: AuftraegeService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.loadOffeneAuftraege();
@@ -63,8 +63,8 @@ export class OffeneAuftraegeComponent implements OnInit, AfterViewInit {
     dataSource.paginator = paginator;
   }
 
-/*  navigateToDetail(auftragId: number) {
-    // Navigiere zur Detailansicht
-    this.router.navigate(['/auftrag-detail', auftragId]);
-  }*/
+  /*  navigateToDetail(auftragId: number) {
+      // Navigiere zur Detailansicht
+      this.router.navigate(['/auftrag-detail', auftragId]);
+    }*/
 }

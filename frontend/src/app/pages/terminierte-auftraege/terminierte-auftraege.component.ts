@@ -1,16 +1,16 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { Router, RouterLink } from '@angular/router';
-import { AuftraegeService } from '../../shared/services/auftraege.service';
+import {Component, ViewChild, AfterViewInit, OnInit} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
+import {MaterialModule} from '../../shared/modules/material.module';
+import {AuftraegeService} from '../../shared/services/auftraege.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator'; // Passe den Pfad bei Bedarf an
+import {TableComponent} from '../../shared/components/table/table.component';
+
 
 @Component({
   selector: 'app-terminierte-auftraege',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, RouterLink],
+  imports: [MaterialModule, TableComponent],
   templateUrl: './terminierte-auftraege.component.html',
   styleUrls: ['./terminierte-auftraege.component.css'],
 })
@@ -30,7 +30,8 @@ export class TerminierteAuftraegeComponent implements AfterViewInit, OnInit {
   constructor(
     private auftraegeService: AuftraegeService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.loadTerminierteAuftraege();

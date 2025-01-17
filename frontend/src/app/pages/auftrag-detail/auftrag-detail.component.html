@@ -60,7 +60,7 @@
 
   <!-- Auftrag terminieren Überschrift -->
   <h2 class="terminieren-header">
-    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' ? 'Termin' : 'Auftrag Terminieren' }}
+    {{ auftrag?.status === 'Terminiert' || auftrag?.status === 'In Bearbeitung' || auftrag?.status === 'Abgeschlossen' ? 'Termin' : 'Auftrag Terminieren' }}
   </h2>
 
   <!-- Abgabe Ort -->

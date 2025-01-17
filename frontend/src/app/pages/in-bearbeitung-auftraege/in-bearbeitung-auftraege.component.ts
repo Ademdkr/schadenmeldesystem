@@ -1,16 +1,16 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { AuftraegeService } from '../../shared/services/auftraege.service';
-import {RouterLink} from '@angular/router'; // Passe den Pfad bei Bedarf an
+import {Component, ViewChild, AfterViewInit, OnInit} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
+import {MaterialModule} from '../../shared/modules/material.module';
+import {AuftraegeService} from '../../shared/services/auftraege.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator'; // Passe den Pfad bei Bedarf an
+import {TableComponent} from '../../shared/components/table/table.component';
+
 
 @Component({
   selector: 'app-in-bearbeitung-auftraege',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, RouterLink],
+  imports: [MaterialModule, TableComponent],
   templateUrl: './in-bearbeitung-auftraege.component.html',
   styleUrls: ['./in-bearbeitung-auftraege.component.css'],
 })
@@ -21,7 +21,8 @@ export class InBearbeitungAuftraegeComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) inBearbeitungAuftraegePaginator!: MatPaginator;
 
-  constructor(private auftraegeService: AuftraegeService) {}
+  constructor(private auftraegeService: AuftraegeService) {
+  }
 
   ngOnInit() {
     // Hole die Aufträge mit Platzhaltern

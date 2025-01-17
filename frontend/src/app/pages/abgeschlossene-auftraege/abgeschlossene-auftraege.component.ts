@@ -1,16 +1,16 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import {Component, ViewChild, AfterViewInit, OnInit} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
+import {MaterialModule} from '../../shared/modules/material.module';
 import {AuftraegeService} from '../../shared/services/auftraege.service';
-import {RouterLink} from '@angular/router';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator'; // Passe den Pfad bei Bedarf an
+import {TableComponent} from '../../shared/components/table/table.component';
+
 
 @Component({
   selector: 'app-abgeschlossene-auftraege',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, RouterLink],
+  imports: [MaterialModule, TableComponent],
   templateUrl: './abgeschlossene-auftraege.component.html',
   styleUrls: ['./abgeschlossene-auftraege.component.css'],
 })
@@ -21,7 +21,8 @@ export class AbgeschlosseneAuftraegeComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) abgeschlosseneAuftraegePaginator!: MatPaginator;
 
-  constructor(private auftraegeService: AuftraegeService) {}
+  constructor(private auftraegeService: AuftraegeService) {
+  }
 
   ngOnInit() {
     // Hole die Aufträge mit Platzhaltern
