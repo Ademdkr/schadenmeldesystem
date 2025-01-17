@@ -1,0 +1,31 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+
+  <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+    <mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <!-- Bedingung für Boolean-Werte -->
+      <ng-container *ngIf="element[column] !== null && element[column] !== undefined; else dash">
+        <!-- Falls das Datum formatiert werden muss -->
+        <ng-container *ngIf="column === 'erstelltAm' || column === 'abgabeDatum' || column === 'reparaturStart' || column === 'reparaturEnde'; else otherValue">
+          {{ element[column] | dateFormat: column === 'erstelltAm' || column === 'reparaturStart' || column === 'reparaturEnde' ? 'datetime' : 'date' }}
+        </ng-container>
+
+        <!-- Andernfalls normale Anzeige des Wertes -->
+        <ng-template #otherValue>
+          {{ element[column] === true ? 'Ja' : (element[column] === false ? 'Nein' : element[column]) }}
+        </ng-template>
+
+      </ng-container>
+      <ng-template #dash>-</ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Tabellenzeilen -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    [ngClass]="{ 'table-row': row.auftragId }"
+    [routerLink]="row.auftragId ? ['/auftrag-detail', row.auftragId] : null">
+  </mat-row>
+
+</mat-table>

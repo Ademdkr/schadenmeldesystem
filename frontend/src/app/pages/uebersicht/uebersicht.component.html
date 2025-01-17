@@ -1,109 +1,16 @@
 <div class="uebersicht-container">
   <h2>Übersicht</h2>
 
-  <!-- Tabelle 1: Offene Aufträge -->
-  <h3>Offene Aufträge</h3>
-  <mat-table [dataSource]="offeneAuftraegeDataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="auftragId">
-      <mat-header-cell *matHeaderCellDef> Auftrag-ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.auftragId || '-' }} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="kennzeichen">
-      <mat-header-cell *matHeaderCellDef> Kennzeichen </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.kennzeichen || '-' }} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="marke">
-      <mat-header-cell *matHeaderCellDef> Marke </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.marke || '-' }} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="fahrtuechtig">
-      <mat-header-cell *matHeaderCellDef> Fahrtüchtig </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        {{ element?.fahrtuechtig === true ? 'Ja' : (element?.fahrtuechtig === false ? 'Nein' : '-') }}
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="standort">
-      <mat-header-cell *matHeaderCellDef> Standort </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.standort || '-' }} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="erstelltAm">
-      <mat-header-cell *matHeaderCellDef> Erstellt am </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.erstelltAm || '-' }} </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="offeneAuftraegeDisplayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: offeneAuftraegeDisplayedColumns;"></mat-row>
-  </mat-table>
-
-  <mat-paginator [pageSize]="3" [pageSizeOptions]="[3]" showFirstLastButtons></mat-paginator>
-
-
-  <!-- Tabelle 2: Terminierte Aufträge -->
-  <h3>Terminierte Aufträge</h3>
-  <mat-table [dataSource]="terminierteAuftraegeDataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="auftragId">
-      <mat-header-cell *matHeaderCellDef> Auftrag-ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.auftragId || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="kennzeichen">
-      <mat-header-cell *matHeaderCellDef> Kennzeichen </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.kennzeichen || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="marke">
-      <mat-header-cell *matHeaderCellDef> Marke </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.marke || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="abgabeTermin">
-      <mat-header-cell *matHeaderCellDef> Abgabe Termin </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.abgabeTermin || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="abgabeOrt">
-      <mat-header-cell *matHeaderCellDef> Abgabe Ort </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.abgabeOrt || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="abgabeBestaetigt">
-      <mat-header-cell *matHeaderCellDef> Abgabe Bestätigt </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        {{ element?.abgabeBestaetigt === true ? 'Ja' : (element?.abgabeBestaetigt === false ? 'Nein' : '-') }}
-      </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="terminierteAuftraegeDisplayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: terminierteAuftraegeDisplayedColumns;"></mat-row>
-  </mat-table>
-  <mat-paginator [pageSize]="3" [pageSizeOptions]="[3]" showFirstLastButtons></mat-paginator>
-
-  <!-- Tabelle 3: In Bearbeitung Aufträge -->
-  <h3>In Bearbeitung Aufträge</h3>
-  <mat-table [dataSource]="inBearbeitungAuftraegeDataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="auftragId">
-      <mat-header-cell *matHeaderCellDef> Auftrag-ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.auftragId || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="kennzeichen">
-      <mat-header-cell *matHeaderCellDef> Kennzeichen </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.kennzeichen || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="marke">
-      <mat-header-cell *matHeaderCellDef> Marke </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.marke || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="bearbeiter">
-      <mat-header-cell *matHeaderCellDef> Bearbeiter </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.bearbeiter || '-' }} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="reparaturStart">
-      <mat-header-cell *matHeaderCellDef> Reparatur Start </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.reparaturStart || '-' }} </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="inBearbeitungAuftraegeDisplayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: inBearbeitungAuftraegeDisplayedColumns;"></mat-row>
-  </mat-table>
-  <mat-paginator [pageSize]="3" [pageSizeOptions]="[3]" showFirstLastButtons></mat-paginator>
+  <ng-container *ngFor="let table of tableConfig">
+    <h3>{{ table.title }}</h3>
+    <app-table
+      [dataSource]="table.dataSource"
+      [displayedColumns]="table.displayedColumns">
+    </app-table>
+    <mat-paginator
+      [pageSize]="3"
+      [pageSizeOptions]="[3]"
+      showFirstLastButtons>
+    </mat-paginator>
+  </ng-container>
 </div>

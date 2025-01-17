@@ -1,8 +1,16 @@
+:host {
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 /* Karte für die Auftragsseite */
 .auftrag-card {
   max-width: 100%;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 25px;
+  padding: 25px;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: #ffffff;

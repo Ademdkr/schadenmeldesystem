@@ -1,0 +1,8 @@
+/* Hauptcontainer nimmt den gesamten Viewport ein */
+.main {
+  display: flex;
+  /*height: 100vh; !* Volle Höhe des Viewports *!*/
+  /*width: 100vw;*/
+}
+
+

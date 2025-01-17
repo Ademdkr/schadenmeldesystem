@@ -1,0 +1,69 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Vollbildhöhe */
+  width: 100vw; /* Vollbildbreite */
+  background-color: #f0f4f8; /* Sanftes Grau für den Hintergrund */
+  flex-direction: column; /* Damit die Überschrift oben und die Karte darunter ist */
+  padding: 0;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 20px; /* Abstand zwischen der Überschrift und der mat-card */
+}
+
+.login-header h1 {
+  font-size: 28px;
+  color: #2c3e50; /* Dunkleres Grau für den Text */
+  font-family: 'Arial', sans-serif;
+}
+
+mat-card {
+  width: 450px; /* Breite der Karte */
+  padding: 40px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Weicherer Schatten */
+  border-radius: 12px; /* Abgerundete Ecken */
+  background-color: #ffffff; /* Weiß für den Kartenhintergrund */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Zentriert den Inhalt innerhalb der Karte */
+  margin-top: 20px; /* Abstand von der Überschrift zur Karte */
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #34495e; /* Dezentes Blau/Grau für den Titel */
+  font-family: 'Arial', sans-serif;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+input {
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  font-size: 16px;
+  background-color: #3498db; /* Blau für den Button */
+  color: white;
+  border-radius: 5px;
+  padding: 12px;
+  text-transform: uppercase;
+}
+
+button:disabled {
+  background-color: #bdc3c7; /* Grauer Button, wenn deaktiviert */
+}
+
+mat-error {
+  color: #e74c3c; /* Rot für Fehlermeldungen */
+}

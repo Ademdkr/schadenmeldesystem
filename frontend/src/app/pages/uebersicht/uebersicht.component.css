@@ -1,23 +1,16 @@
+:host {
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .uebersicht-container {
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  /*margin-left: 250px; !* Platz für die Sidenav *!*/
+  margin: 0;
+  padding: 25px;
+  border: 0;
 }
 
-h2 {
-  margin-top: 24px;
-}
-
-mat-table {
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-mat-paginator {
-  margin-top: 8px;
-}
-
-.mat-elevation-z8 {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
