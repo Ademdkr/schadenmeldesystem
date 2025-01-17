@@ -8,19 +8,11 @@
   background-color: #ffffff;
 }
 
-/* Überschrift für die Karte */
-.auftrag-card h2 {
-  margin-top: 0px;
-  margin-bottom: 32px;
-  font-size: 1.5rem;
-  text-align: center;
-  color: #333333;
-}
-
-/* Formularfeld-Container */
-mat-form-field {
-  width: 100%;
-  /*margin-bottom: 16px;*/
+/* Bereich mit deaktivierten Eingaben */
+.auftrag-card mat-form-field[appearance='fill'] {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 16px;
 }
 
 /* Fahrzeuginformationen */
@@ -39,17 +31,13 @@ mat-form-field {
   color: #555555;
 }
 
-/* Fahrzeugdetails */
-.fahrzeug-info p {
-  margin: 4px 0;
-  color: #666666;
-}
-
-/* Kein Fahrzeug gefunden Nachricht */
-.auftrag-card p {
-  margin-top: 8px;
-  color: #d32f2f;
-  font-weight: bold;
+/* Info-Text */
+.info-text {
+  margin: 8px 0;
+  color: #555555;
+  font-weight: 500;
+  text-align: left;
+  line-height: 1.6;
 }
 
 /* Erstellen-Button */

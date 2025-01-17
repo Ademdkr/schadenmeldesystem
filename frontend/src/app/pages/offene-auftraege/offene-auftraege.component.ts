@@ -1,35 +1,32 @@
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { AuftragService } from '../../shared/services/auftrag.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import {Router, RouterLink} from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { AuftraegeService } from '../../shared/services/auftraege.service'; // Passe den Pfad bei Bedarf an
+import { Auftrag } from '../../shared/models/auftrag.model';
+import { PaginationService } from '../../shared/utils/pagination.service';  // Importiere den Service
 
 @Component({
   selector: 'app-offene-auftraege',
-  standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, RouterLink],
   templateUrl: './offene-auftraege.component.html',
   styleUrls: ['./offene-auftraege.component.css'],
+  standalone: false,
 })
 export class OffeneAuftraegeComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'auftragId',
     'kennzeichen',
     'marke',
-    'fahrttauglich',
+    'fahrtuechtig',
     'standort',
     'erstelltAm',
   ];
-  offeneAuftraegeDataSource = new MatTableDataSource<any>([]);
+  offeneAuftraegeDataSource = new MatTableDataSource<Auftrag>([]);
 
   @ViewChild(MatPaginator) offeneAuftraegePaginator!: MatPaginator;
 
   constructor(
-    private auftraegeService: AuftraegeService,
-    private router: Router
+    private auftragService: AuftragService,
+    private paginationService: PaginationService  // Service injizieren
   ) {}
 
   ngOnInit() {
@@ -37,34 +34,18 @@ export class OffeneAuftraegeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.initializeTable(this.offeneAuftraegeDataSource, this.offeneAuftraegePaginator);
+    this.paginationService.initializeTable(this.offeneAuftraegeDataSource, this.offeneAuftraegePaginator, 10);  // Paginierung initialisieren
   }
 
   loadOffeneAuftraege() {
-    // Hole die offenen Aufträge vom Service und setze sie in die DataSource
-    const offeneAuftraege = this.auftraegeService.getOffeneAuftraege();
-    this.offeneAuftraegeDataSource.data = offeneAuftraege;
+    this.auftragService.getAuftraegeByStatus('offen').subscribe(
+      (data) => {
+        this.offeneAuftraegeDataSource.data = data;
+        this.paginationService.initializeTable(this.offeneAuftraegeDataSource, this.offeneAuftraegePaginator, 10);  // Nach Datenladen erneut aufrufen
+      },
+      (error) => {
+        console.error('Fehler beim Laden der offenen Aufträge', error);
+      }
+    );
   }
-
-  initializeTable(dataSource: MatTableDataSource<any>, paginator: MatPaginator) {
-    const PLACEHOLDER_ROWS = 10;
-    const filledData = [...dataSource.data];
-    while (filledData.length < PLACEHOLDER_ROWS) {
-      filledData.push({
-        auftragId: null,
-        kennzeichen: null,
-        marke: null,
-        fahrtuechtig: null,
-        standort: null,
-        erstelltAm: null,
-      });
-    }
-    dataSource.data = filledData;
-    dataSource.paginator = paginator;
-  }
-
-/*  navigateToDetail(auftragId: number) {
-    // Navigiere zur Detailansicht
-    this.router.navigate(['/auftrag-detail', auftragId]);
-  }*/
 }
