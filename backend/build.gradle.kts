@@ -18,8 +18,19 @@ repositories {
 }
 
 dependencies {
+	// Spring Web Starter
 	implementation("org.springframework.boot:spring-boot-starter-web")
+
+	// Spring Data JPA
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+	// SQLite JDBC Driver
+	implementation("org.xerial:sqlite-jdbc:3.41.2.1")
+
+	// Development tools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+	// Test dependencies
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

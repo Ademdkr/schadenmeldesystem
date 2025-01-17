@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import {Component} from '@angular/core';
+import {RouterModule} from '@angular/router';
 import {NgIf} from '@angular/common';
+import {MaterialModule} from '../../modules/material.module';
 
 @Component({
   selector: 'app-sidenav',
   standalone: true,
-  imports: [MatSidenavModule, MatListModule, MatButtonModule, RouterModule, NgIf],
+  imports: [MaterialModule, RouterModule, NgIf],
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
 })
