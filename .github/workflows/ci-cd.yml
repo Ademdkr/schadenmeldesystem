@@ -36,10 +36,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Backend Test
         run: cd backend && ./gradlew clean test
+
       - name: Frontend Test
-        run: cd frontend && npm ci && npm run test -- --watch=false
+        run: |
+          cd frontend
+          npm ci
+          npm run test -- --watch=false
 
   docker:
     needs: build-test
