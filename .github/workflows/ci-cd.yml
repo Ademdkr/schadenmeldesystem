@@ -1,0 +1,59 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop, main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Kotlin Lint
+        run: cd backend && ./gradlew ktlintCheck
+      - name: Angular Lint
+        run: cd frontend && npm ci && npm run lint
+
+  build-test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Backend Test
+        run: cd backend && ./gradlew clean test
+      - name: Frontend Test
+        run: cd frontend && npm ci && npm run test -- --watch=false
+
+  docker:
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker Login
+        run: echo "${{ secrets.DOCKER_PASS }}" \
+          | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+      - name: Build & Push Backend
+        run: |
+          docker build -t ${{ secrets.DOCKER_USER }}/app-backend:${{ github.sha }} \
+            -f backend/Dockerfile.backend backend
+          docker push ${{ secrets.DOCKER_USER }}/app-backend:${{ github.sha }}
+      - name: Build & Push Frontend
+        run: |
+          docker build -t ${{ secrets.DOCKER_USER }}/app-frontend:${{ github.sha }} \
+            -f frontend/Dockerfile.frontend frontend
+          docker push ${{ secrets.DOCKER_USER }}/app-frontend:${{ github.sha }}
+
+  deploy:
+    needs: docker
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Kubernetes
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig
+          export KUBECONFIG=kubeconfig
+          helm upgrade --install myapp ./helm-chart \
+            --set image.backend.tag=${{ github.sha }} \
+            --set image.frontend.tag=${{ github.sha }}
