@@ -8,6 +8,12 @@ import { PaginationService } from '../../shared/utils/pagination.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { jwtDecode } from 'jwt-decode';
 
+// Neues Interface für den Inhalt deines JWT
+interface DecodedToken {
+  sub: string;
+  department: string;
+}
+
 @Component({
   selector: 'app-auftrag-tabelle',
   templateUrl: './auftrag-tabelle.component.html',
@@ -18,8 +24,8 @@ export class AuftragTabelleComponent implements OnInit {
   status!: string;
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<Auftrag>([]);
-  userRole: string = '';
-  userEmail: string = '';
+  userRole = '';
+  userEmail = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -41,14 +47,15 @@ export class AuftragTabelleComponent implements OnInit {
 
   private loadUserDetails(): void {
     const token = this.authService.getToken();
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        this.userEmail = decodedToken.sub; // E-Mail-Adresse aus dem Token holen
-        this.userRole = decodedToken.department;
-      } catch (error) {
-        console.error('Fehler beim Dekodieren des Tokens:', error);
-      }
+    if (!token) { return; }
+
+    try {
+      // kein `: any` mehr, sondern Typed Decode
+      const decodedToken = jwtDecode<DecodedToken>(token);
+      this.userEmail = decodedToken.sub;
+      this.userRole  = decodedToken.department;
+    } catch (error) {
+      console.error('Fehler beim Dekodieren des Tokens:', error);
     }
   }
 

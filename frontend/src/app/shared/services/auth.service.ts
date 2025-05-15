@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+// import { Observable } from 'rxjs';
+
+interface LoginResponse {
+  token: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -11,16 +16,23 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string): void {
-    this.http.post('http://localhost:8080/api/auth/login', { email, password }).subscribe({
-      next: (response: any) => {
-        this.token = response.token;
-        localStorage.setItem('token', this.token!);
-        this.router.navigate(['/uebersicht']);
-      },
-      error: () => {
-        alert('Login fehlgeschlagen. Bitte überprüfen Sie Ihre Eingaben.');
-      },
-    });
+    this.http
+      .post<LoginResponse>('http://localhost:8080/api/auth/login', { email, password })
+      .subscribe({
+        next: ({ token }) => {
+          this.setToken(token);
+          this.router.navigate(['/uebersicht']);
+        },
+        error: () => {
+          alert('Login fehlgeschlagen. Bitte überprüfen Sie Ihre Eingaben.');
+        },
+      });
+  }
+
+  /** Speichert Token intern und in localStorage */
+  setToken(token: string): void {
+    this.token = token;
+    localStorage.setItem('token', token);
   }
 
   logout(): void {
@@ -34,7 +46,6 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token'); // Sicherstellen, dass hier der richtige Schlüssel genutzt wird
+    return localStorage.getItem('token');
   }
-
 }

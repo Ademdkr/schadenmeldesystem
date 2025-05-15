@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { Component, Input } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-table',
@@ -9,7 +9,19 @@ import {MatPaginator} from '@angular/material/paginator';
   standalone: false
 })
 export class TableComponent {
-  @Input() dataSource!: MatTableDataSource<any, MatPaginator>;
+  /** Datenquelle für die Tabelle */
+  @Input() dataSource!: MatTableDataSource<unknown>;
+
+  /** Spalten, die angezeigt werden sollen */
   @Input() displayedColumns: string[] = [];
 
+  /** Paginator, der von der Eltern-Komponente übergeben wird */
+  @Input() paginator!: MatPaginator;
+
+  /** Wenn sich Inputs ändern, verknüpfen wir dataSource und paginator */
+  ngOnChanges(): void {
+    if (this.dataSource && this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+  }
 }

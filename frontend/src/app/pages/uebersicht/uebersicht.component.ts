@@ -5,36 +5,52 @@ import { AuftragService } from '../../shared/services/auftrag.service';
 import { PaginationService } from '../../shared/utils/pagination.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { jwtDecode } from 'jwt-decode';
+import { Auftrag } from '../../shared/models/auftrag.model';
+
+interface DecodedToken {
+  sub: string;
+  department: string;
+}
+
+// Wir verwenden Partial<Auftrag> für Platzhalter-Zeilen, da dort Felder fehlen dürfen
+type AuftragRow = Auftrag | Partial<Auftrag>;
 
 @Component({
-  selector: 'app-uebersicht',
-  templateUrl: './uebersicht.component.html',
-  styleUrls: ['./uebersicht.component.css'],
-  standalone: false
+  selector: 'app-auftrag-tabelle',
+  templateUrl: './auftrag-tabelle.component.html',
+  styleUrls: ['./auftrag-tabelle.component.css'],
+  standalone: false,
 })
-export class UebersichtComponent implements OnInit, AfterViewInit {
+export class AuftragTabelleComponent implements OnInit, AfterViewInit {
   @ViewChildren(MatPaginator) paginators!: QueryList<MatPaginator>;
-  userRole: string = '';
-  userEmail: string = '';
 
-  tableConfig = [
+  userRole = '';
+  userEmail = '';
+
+  // Jetzt typisiert: DataSource für Auftrag oder Partial<Auftrag>
+  tableConfig: {
+    key: string;
+    title: string;
+    displayedColumns: string[];
+    dataSource: MatTableDataSource<AuftragRow>;
+  }[] = [
     {
       key: 'offene',
       title: 'Offene Aufträge',
       displayedColumns: ['auftragId', 'kennzeichen', 'marke', 'fahrtuechtig', 'standort', 'erstelltAm'],
-      dataSource: new MatTableDataSource<any>([]),
+      dataSource: new MatTableDataSource<AuftragRow>([]),
     },
     {
       key: 'terminierte',
       title: 'Terminierte Aufträge',
       displayedColumns: ['auftragId', 'kennzeichen', 'marke', 'abgabeDatum', 'abgabeOrt', 'abgabeBestaetigt'],
-      dataSource: new MatTableDataSource<any>([]),
+      dataSource: new MatTableDataSource<AuftragRow>([]),
     },
     {
       key: 'inBearbeitung',
       title: 'In Bearbeitung Aufträge',
       displayedColumns: ['auftragId', 'kennzeichen', 'marke', 'bearbeiter', 'reparaturStart'],
-      dataSource: new MatTableDataSource<any>([]),
+      dataSource: new MatTableDataSource<AuftragRow>([]),
     },
   ];
 
@@ -57,72 +73,69 @@ export class UebersichtComponent implements OnInit, AfterViewInit {
 
   private loadUserDetails(): void {
     const token = this.authService.getToken();
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        this.userEmail = decodedToken.sub; // E-Mail-Adresse aus dem Token holen
-        this.userRole = decodedToken.department;
+    if (!token) { return; }
 
-        // Daten erst nach Laden der Benutzerinformationen abrufen
-        this.tableConfig.forEach((table) => this.loadData(table.key, this.getStatusForKey(table.key)));
-      } catch (error) {
-        console.error('Fehler beim Dekodieren des Tokens:', error);
-      }
-    }
-  }
+    try {
+      const decoded = jwtDecode<DecodedToken>(token);
+      this.userEmail = decoded.sub;
+      this.userRole  = decoded.department;
 
-  private loadData(key: string, status: string) {
-    const table = this.tableConfig.find((t) => t.key === key);
-    if (table) {
-      this.auftragService.getAuftraegeByStatus(status).subscribe(
-        (data) => {
-          if (this.userRole === 'Fahrer') {
-            data = data.filter((auftrag) => auftrag.email === this.userEmail);
-          }
-          const placeholdersNeeded = Math.max(0, 3 - data.length);
-          const placeholderRows = Array(placeholdersNeeded).fill(this.createPlaceholder(key));
-          table.dataSource.data = [...data, ...placeholderRows];
-        },
-        (error) => {
-          console.error(`Fehler beim Laden der ${key}-Aufträge:`, error);
-        }
+      // erst jetzt Daten laden
+      this.tableConfig.forEach(table =>
+        this.loadData(table.key, this.getStatusForKey(table.key))
       );
+    } catch (e) {
+      console.error('Fehler beim Dekodieren des Tokens:', e);
     }
   }
 
-  private createPlaceholder(key: string): any {
-    const placeholders: any = {
-      auftragId: null,
-      kennzeichen: null,
-      marke: null,
+  private loadData(key: string, status: string): void {
+    const table = this.tableConfig.find(t => t.key === key);
+    if (!table) { return; }
+
+    this.auftragService.getAuftraegeByStatus(status).subscribe(
+      (data: Auftrag[]) => {
+        let rows: AuftragRow[] = data;
+        if (this.userRole === 'Fahrer') {
+          rows = rows.filter(a => a.email === this.userEmail);
+        }
+        // mind. 3 Zeilen
+        const placeholders: AuftragRow[] = Array(Math.max(0, 3 - rows.length))
+          .fill(this.createPlaceholder(key));
+        table.dataSource.data = [...rows, ...placeholders];
+      },
+      err => {
+        console.error(`Fehler beim Laden der ${key}-Aufträge:`, err);
+      }
+    );
+  }
+
+  private createPlaceholder(key: string): Partial<Auftrag> {
+    const base: Partial<Auftrag> = {
+      auftragId: undefined,
+      kennzeichen: '',
+      marke: '',
     };
 
     if (key === 'terminierte') {
-      placeholders.abgabeOrt = null;
-      placeholders.abgabeBestaetigt = null;
+      return { ...base, abgabeOrt: '', abgabeBestaetigt: false };
     } else if (key === 'inBearbeitung') {
-      placeholders.bearbeiter = null;
-      placeholders.reparaturStart = null;
+      return { ...base, bearbeiter: '', reparaturStart: '' };
     }
-
-    return placeholders;
+    return base;
   }
 
-  private initializePaginator(dataSource: MatTableDataSource<any>, paginator: MatPaginator) {
+  private initializePaginator(dataSource: MatTableDataSource<AuftragRow>, paginator: MatPaginator): void {
     dataSource.paginator = paginator;
     this.paginationService.initializeTable(dataSource, paginator, 3);
   }
 
   private getStatusForKey(key: string): string {
     switch (key) {
-      case 'offene':
-        return 'offen';
-      case 'terminierte':
-        return 'terminiert';
-      case 'inBearbeitung':
-        return 'in-bearbeitung';
-      default:
-        return '';
+      case 'offene': return 'offen';
+      case 'terminierte': return 'terminiert';
+      case 'inBearbeitung': return 'in-bearbeitung';
+      default: return '';
     }
   }
 }

@@ -6,6 +6,13 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { jwtDecode } from 'jwt-decode';
 
+interface DecodedToken {
+  department: string;
+  firstName: string;
+  lastName: string;
+  sub: string;
+}
+
 @Component({
   selector: 'app-auftrag-erstellen',
   templateUrl: './auftrag-erstellen.component.html',
@@ -43,15 +50,16 @@ export class AuftragErstellenComponent {
   // Holt die Benutzerdaten aus dem JWT-Token
   private loadUserDetails(): void {
     const token = this.authService.getToken();
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        this.auftrag.rolle = decodedToken.department;
-        this.auftrag.erstelltVon = `${decodedToken.firstName} ${decodedToken.lastName}`;
-        this.auftrag.email = decodedToken.sub;
-      } catch (error) {
-        console.error('Fehler beim Dekodieren des Tokens:', error);
-      }
+    if (!token) { return; }
+
+    try {
+      // hier kein `: any` mehr, sondern über Generic
+      const decodedToken = jwtDecode<DecodedToken>(token);
+      this.auftrag.rolle      = decodedToken.department;
+      this.auftrag.erstelltVon = `${decodedToken.firstName} ${decodedToken.lastName}`;
+      this.auftrag.email     = decodedToken.sub;
+    } catch (error) {
+      console.error('Fehler beim Dekodieren des Tokens:', error);
     }
   }
 
@@ -80,10 +88,10 @@ export class AuftragErstellenComponent {
     if (this.fahrzeug) {
       this.auftrag = {
         ...this.auftrag,
-        vin: this.fahrzeug.vin,
-        marke: this.fahrzeug.marke,
-        modell: this.fahrzeug.modell,
-        baujahr: this.fahrzeug.baujahr,
+        vin: this.fahrzeug.vin ?? '',
+        marke: this.fahrzeug.marke ?? '',
+        modell: this.fahrzeug.modell ?? '',
+        baujahr: this.fahrzeug.baujahr ?? 0,
         erstelltAm: new Date()
       };
 

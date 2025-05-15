@@ -14,7 +14,7 @@ export interface Auftrag {
   email?: string;       // E-Mail des Erstellers
   status?: string;      // Status des Auftrags
   abgabeOrt?: string;   // Abgabe Ort
-  abgabeDatum?: string; // Abgabe Datum
+  abgabeDatum?: string | Date; // Abgabe Datum
   abgabeBestaetigt?: boolean;
   bearbeiter?: string;
   bearbeiterEmail?: string;
