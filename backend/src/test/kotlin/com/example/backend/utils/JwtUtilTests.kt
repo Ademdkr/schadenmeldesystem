@@ -1,9 +1,10 @@
 package com.example.backend.utils
 
 import io.jsonwebtoken.Jwts
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import java.util.*
 
 class JwtUtilTests {
 
