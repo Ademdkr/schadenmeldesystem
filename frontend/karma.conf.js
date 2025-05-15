@@ -15,7 +15,7 @@ module.exports = function (config) {
       clearContext: false // lässt das Spec-Runner-Output im Browser stehen
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/frontend'),
+      dir: require('path').join(__dirname, './coverage'),
       subdir: '.',
       reporters: [
         { type: 'html' },
@@ -28,7 +28,10 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    // Hier unsere Anpassung für CI:
+    singleRun: true,
+    restartOnFileChange: false,
+
+    // Hier der Headless-Chrome-Launcher
     browsers: ['ChromeHeadlessCI'],
     customLaunchers: {
       ChromeHeadlessCI: {
@@ -40,8 +43,6 @@ module.exports = function (config) {
           '--remote-debugging-port=9222'
         ]
       }
-    },
-    singleRun: true,
-    restartOnFileChange: false
+    }
   });
 };
