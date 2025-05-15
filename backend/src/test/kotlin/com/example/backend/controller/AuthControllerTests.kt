@@ -1,18 +1,16 @@
 package com.example.backend.controller
 
 import com.example.backend.model.LoginRequest
-import com.example.backend.model.User
-import com.example.backend.utils.JwtUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.hamcrest.CoreMatchers.containsString
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(AuthController::class)
 class AuthControllerTests {

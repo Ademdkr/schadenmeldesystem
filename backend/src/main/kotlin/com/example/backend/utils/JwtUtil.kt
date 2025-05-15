@@ -3,7 +3,7 @@ package com.example.backend.utils
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
-import java.util.*
+import java.util.Date
 
 object JwtUtil {
     /*private const val SECRET_KEY = "mySecretKey" // Geheime Schlüssel, in Env-Variablen speichern
@@ -19,7 +19,7 @@ object JwtUtil {
             .claim("lastName", lastName)
             .claim("department", department)
             .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60))  // 1 Stunde Gültigkeit
+            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 Stunde Gültigkeit
             .signWith(key)
             .compact()
     }

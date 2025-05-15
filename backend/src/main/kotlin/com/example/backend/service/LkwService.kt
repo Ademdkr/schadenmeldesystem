@@ -1,6 +1,5 @@
 package com.example.backend.service
 
-import com.example.backend.model.Lkw
 import com.example.backend.repository.LkwRepository
 import org.springframework.stereotype.Service
 

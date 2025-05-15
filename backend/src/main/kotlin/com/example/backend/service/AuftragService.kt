@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class AuftragService(
     private val repository: AuftragRepository,
     private val emailService: EmailService,
-    private val authController: AuthController  // Füge den AuthController hinzu, um auf die Benutzer zugreifen zu können
+    private val authController: AuthController // Füge den AuthController hinzu, um auf die Benutzer zugreifen zu können
 ) {
     fun save(auftrag: Auftrag): Auftrag = repository.save(auftrag)
 
