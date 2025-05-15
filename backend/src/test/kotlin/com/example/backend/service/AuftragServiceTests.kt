@@ -3,12 +3,15 @@ package com.example.backend.service
 import com.example.backend.controller.AuthController
 import com.example.backend.model.Auftrag
 import com.example.backend.repository.AuftragRepository
-import io.mockk.*
-import org.junit.jupiter.api.Assertions.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.spyk
+import io.mockk.verify
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
-import java.util.*
+import java.util.Optional
 
 class AuftragServiceTests {
 
