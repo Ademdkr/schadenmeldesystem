@@ -6,20 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="backend optimierung wird durchgeführt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-erstellen/auftrag-erstellen.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-erstellen/auftrag-erstellen.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-tabelle/auftrag-tabelle.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-tabelle/auftrag-tabelle.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/login/login.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/login/login.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/uebersicht/uebersicht.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/uebersicht/uebersicht.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/uebersicht/uebersicht.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/uebersicht/uebersicht.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/components/sidenav/sidenav.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/components/sidenav/sidenav.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/components/table/table.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/components/table/table.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/components/table/table.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/components/table/table.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/models/auftrag.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/models/auftrag.model.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +107,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.BackendApplication.executor": "Debug",
+    "Spring Boot.BackendApplication.executor": "Run",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
@@ -162,7 +148,7 @@
       <recent name="org.example.backend.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.BackendApplication">
+  <component name="RunManager" selected="npm.Angular CLI Server (frontend)">
     <configuration name="Tests in 'backend.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -307,7 +293,7 @@
       <workItem from="1747211163178" duration="5422000" />
       <workItem from="1747221662349" duration="823000" />
       <workItem from="1747291494140" duration="11779000" />
-      <workItem from="1747327524379" duration="16424000" />
+      <workItem from="1747327524379" duration="19179000" />
     </task>
     <task id="LOCAL-00001" summary="angular material initialized">
       <option name="closed" value="true" />
