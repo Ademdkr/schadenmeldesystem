@@ -1,12 +1,16 @@
+// frontend/src/app/app.component.spec.ts
+
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        HttpClientTestingModule    // stellt HttpClient für AuthService bereit
       ],
       declarations: [
         AppComponent
