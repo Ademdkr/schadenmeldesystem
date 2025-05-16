@@ -11,21 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Debug backend folder
         run: |
           ls -l backend
           file backend/gradlew
-
       - name: Make backend/gradlew executable
         run: chmod +x backend/gradlew
-
       - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: '17'
-
       - name: Run ktlint via bash
         run: |
           cd backend
@@ -70,8 +66,6 @@ jobs:
             -t ${{ secrets.DOCKER_USER }}/app-backend:${{ github.sha }} \
             backend
           docker push ${{ secrets.DOCKER_USER }}/app-backend:${{ github.sha }}
-      
-      
 
       - name: Build & Push Frontend
         run: |
@@ -80,19 +74,46 @@ jobs:
             -t ${{ secrets.DOCKER_USER }}/app-frontend:${{ github.sha }} \
             frontend
           docker push ${{ secrets.DOCKER_USER }}/app-frontend:${{ github.sha }}
-  
-  
-  
 
   deploy:
     needs: docker
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Kubernetes
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # ───────────────────────────────────────────────
+      # 1) Deploy Backend zu Render
+      # ───────────────────────────────────────────────
+      - name: Deploy Backend to Render
+        uses: render-examples/render-deploy@v1
+        with:
+          apiKey: ${{ secrets.RENDER_API_KEY }}
+          serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+
+      # ───────────────────────────────────────────────
+      # 2) Install & Build Frontend für Netlify
+      # ───────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install & Build Frontend
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig
-          export KUBECONFIG=kubeconfig
-          helm upgrade --install myapp ./helm-chart \
-            --set image.backend.tag=${{ github.sha }} \
-            --set image.frontend.tag=${{ github.sha }}
+          cd frontend
+          npm ci
+          npm run build
+
+      # ───────────────────────────────────────────────
+      # 3) Deploy Static Files zu Netlify
+      # ───────────────────────────────────────────────
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2.3
+        with:
+          publish-dir: frontend/build
+          production-branch: develop
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
