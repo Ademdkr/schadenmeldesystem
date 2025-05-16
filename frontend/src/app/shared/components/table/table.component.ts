@@ -2,23 +2,31 @@
 
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { DateFormatPipe } from '../../utils/date-format.pipe';
 
+/**
+ * Generische Table-Komponente zur Darstellung beliebiger Datentypen.
+ * Verwendet einen Typparameter T, um MatTableDataSource<T> zu unterstützen.
+ */
 @Component({
   selector: 'app-table',
-  standalone: true,            // jetzt standalone
+  standalone: true,
   imports: [
-    CommonModule,              // für *ngFor, etc.
+    CommonModule,
+    RouterModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    DateFormatPipe
   ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnChanges {
-  /** Datenquelle für die Tabelle */
-  @Input() dataSource!: MatTableDataSource<unknown>;
+export class TableComponent<T> implements OnChanges {
+  /** Datenquelle für die Tabelle mit generischem Typ T */
+  @Input() dataSource!: MatTableDataSource<T>;
 
   /** Spalten, die angezeigt werden sollen */
   @Input() displayedColumns: string[] = [];

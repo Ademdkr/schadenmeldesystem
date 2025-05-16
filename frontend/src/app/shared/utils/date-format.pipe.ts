@@ -1,21 +1,18 @@
-import { Pipe, PipeTransform } from '@angular/core';
+// src/app/shared/utils/date-format.pipe.ts
+import {Pipe, PipeTransform} from '@angular/core';
+import {formatDate} from '@angular/common';
 
-@Pipe({
-  name: 'dateFormat',
-  pure: true, // Pipes sind standardmäßig "pure", um die Performance zu verbessern.
-  standalone: false
-})
+@Pipe({ name: 'dateFormat' })
 export class DateFormatPipe implements PipeTransform {
-  transform(value: string | undefined | null, format: 'date' | 'datetime'): string | undefined {
-    if (!value) {
-      return undefined;
+  transform(
+    value: string | Date | null | undefined,
+    format: string = 'short',
+    locale: string = 'de-DE'
+  ): string | null {
+    if (value == null) {
+      return null;
     }
-
-    const options: Intl.DateTimeFormatOptions =
-      format === 'datetime'
-        ? { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }
-        : { year: 'numeric', month: '2-digit', day: '2-digit' };
-
-    return new Date(value).toLocaleString('de-DE', options);
+    const date = typeof value === 'string' ? new Date(value) : value;
+    return formatDate(date, format, locale);
   }
 }
