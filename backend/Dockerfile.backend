@@ -1,0 +1,22 @@
+# Stage 1: Build the JAR with Gradle
+FROM gradle:7.5-jdk17 AS builder
+WORKDIR /app
+
+# Nur die Dateien, die zum Bauen nötig sind, kopieren (Cache-Vorteil)
+COPY backend/settings.gradle backend/settings.gradle
+COPY backend/build.gradle backend/build.gradle
+COPY backend/gradle backend/gradle
+COPY backend/gradlew backend/gradlew
+COPY backend/src backend/src
+
+RUN ./gradlew clean build -x test
+
+# Stage 2: Slim-Runtime
+FROM eclipse-temurin:17-jre-jammy
+WORKDIR /app
+
+# Nimm das gebaute Jar aus Stage 1
+COPY --from=builder /app/build/libs/*.jar app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
