@@ -34,16 +34,18 @@ module.exports = function (config) {
     singleRun: true,
     restartOnFileChange: false,
 
-    browsers: ['ChromeHeadlessCI'],
+    // Nutze genau den Namen 'ChromeHeadless'
+    browsers: ['ChromeHeadless'],
     customLaunchers: {
-      ChromeHeadlessCI: {
+      // Überschreibt den eingebauten Headless-Launcher mit den nötigen Flags
+      ChromeHeadless: {
         base: 'ChromeHeadless',
         flags: [
-          '--headless',
-          '--no-sandbox',
-          '--disable-gpu',
-          '--disable-dev-shm-usage',
-          '--disable-extensions',
+          '--headless',               // Headless-Modus
+          '--no-sandbox',             // nötig im Container
+          '--disable-gpu',            // GPU abschalten
+          '--disable-dev-shm-usage',  // shared memory umgehen
+          '--disable-extensions',     // Extensions ausschalten
           '--remote-debugging-port=9222'
         ]
       }

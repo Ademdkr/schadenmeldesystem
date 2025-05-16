@@ -46,7 +46,7 @@ jobs:
         run: |
           cd frontend
           npm ci
-          npm run test -- --browsers=ChromeHeadlessCI --watch=false
+          npm run test -- --browsers=ChromeHeadless --watch=false
         env:
           CI: true
 
