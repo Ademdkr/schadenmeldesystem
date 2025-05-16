@@ -66,19 +66,21 @@ jobs:
       - name: Build & Push Backend
         run: |
           docker build \
-            -t ${{ secrets.DOCKER_USER }}/app-backend:${{ github.sha }} \
             -f backend/Dockerfile.backend \
-            .
+            -t ${{ secrets.DOCKER_USER }}/app-backend:${{ github.sha }} \
+            backend
           docker push ${{ secrets.DOCKER_USER }}/app-backend:${{ github.sha }}
+      
       
 
       - name: Build & Push Frontend
         run: |
           docker build \
-            -t ${{ secrets.DOCKER_USER }}/app-frontend:${{ github.sha }} \
             -f frontend/Dockerfile.frontend \
-            .
+            -t ${{ secrets.DOCKER_USER }}/app-frontend:${{ github.sha }} \
+            frontend
           docker push ${{ secrets.DOCKER_USER }}/app-frontend:${{ github.sha }}
+  
   
   
 
