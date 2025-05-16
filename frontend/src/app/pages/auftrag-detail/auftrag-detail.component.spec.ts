@@ -16,7 +16,6 @@ describe('AuftragDetailComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         AuftragDetailComponent,
-        DateFormatPipe              // Pipe bereitstellen
       ],
       imports: [
         HttpClientTestingModule,
