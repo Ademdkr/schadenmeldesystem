@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="backend optimierung wird durchgeführt">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Dockerfile.backend" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile.backend" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile.frontend" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile.frontend" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +296,7 @@
       <workItem from="1747221662349" duration="823000" />
       <workItem from="1747291494140" duration="11779000" />
       <workItem from="1747327524379" duration="19422000" />
-      <workItem from="1747378770987" duration="3694000" />
+      <workItem from="1747378770987" duration="4129000" />
     </task>
     <task id="LOCAL-00001" summary="angular material initialized">
       <option name="closed" value="true" />

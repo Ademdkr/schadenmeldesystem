@@ -3,13 +3,15 @@ FROM gradle:7.5-jdk17 AS builder
 WORKDIR /app
 
 # Nur die Dateien, die zum Bauen nötig sind, kopieren (Cache-Vorteil)
-COPY backend/settings.gradle backend/settings.gradle
-COPY backend/build.gradle backend/build.gradle
-COPY backend/gradle backend/gradle
-COPY backend/gradlew backend/gradlew
-COPY backend/src backend/src
+COPY settings.gradle.kts settings.gradle.kts
+COPY build.gradle.kts build.gradle.kts
+COPY gradle/ gradle/
+COPY gradlew gradlew
+COPY src/ src/
 
-RUN ./gradlew clean build -x test
+# Mach gradlew ausführbar und baue (Tests überspringen, da CI schon getestet)
+RUN chmod +x gradlew \
+ && ./gradlew clean build -x test
 
 # Stage 2: Slim-Runtime
 FROM eclipse-temurin:17-jre-jammy
