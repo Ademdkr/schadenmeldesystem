@@ -11,9 +11,11 @@ module.exports = function (config) {
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
+
     client: {
-      clearContext: false // lässt das Spec-Runner-Output im Browser stehen
+      clearContext: false // Spec-Runner-Output im Browser stehen lassen
     },
+
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage'),
       subdir: '.',
@@ -23,6 +25,7 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
+
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
@@ -31,15 +34,17 @@ module.exports = function (config) {
     singleRun: true,
     restartOnFileChange: false,
 
-    // Hier der Headless-Chrome-Launcher
+    // Headless-Chrome für CI
     browsers: ['ChromeHeadlessCI'],
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
         flags: [
-          '--no-sandbox',
-          '--disable-gpu',
-          '--disable-dev-shm-usage',
+          '--headless',               // explizit headless
+          '--no-sandbox',             // nötig im Container
+          '--disable-gpu',            // GPU deaktivieren
+          '--disable-dev-shm-usage',  // shared memory umgehen
+          '--disable-extensions',     // Extensions aus
           '--remote-debugging-port=9222'
         ]
       }

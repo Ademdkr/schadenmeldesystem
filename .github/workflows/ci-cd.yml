@@ -38,13 +38,17 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Backend Test
-        run: cd backend && ./gradlew clean test
+        run: |
+          cd backend
+          ./gradlew clean test
 
       - name: Frontend Test
         run: |
           cd frontend
           npm ci
           npm run test -- --watch=false
+        env:
+          CI: true       # zwingt Angular/Karma, den CI-Headless-Mode zu nutzen
 
   docker:
     needs: build-test
