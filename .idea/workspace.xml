@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="backend optimierung wird durchgeführt">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/239f0592-056e-47b5-8b21-db6e4af150d3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/239f0592-056e-47b5-8b21-db6e4af150d3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
@@ -300,7 +298,7 @@
       <workItem from="1747378770987" duration="6144000" />
       <workItem from="1747385405110" duration="1092000" />
       <workItem from="1747386530573" duration="2168000" />
-      <workItem from="1747422829344" duration="6868000" />
+      <workItem from="1747422829344" duration="7543000" />
     </task>
     <task id="LOCAL-00001" summary="angular material initialized">
       <option name="closed" value="true" />
