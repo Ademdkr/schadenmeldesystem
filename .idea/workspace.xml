@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="backend optimierung wird durchgeführt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-tabelle/auftrag-tabelle.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-tabelle/auftrag-tabelle.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/components/table/table.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/components/table/table.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/shared.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/shared.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/utils/date-format.pipe.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/utils/date-format.pipe.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/components/table/table.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/components/table/table.component.spec.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,6 +297,7 @@
       <workItem from="1747327524379" duration="19422000" />
       <workItem from="1747378770987" duration="6144000" />
       <workItem from="1747385405110" duration="1092000" />
+      <workItem from="1747386530573" duration="1042000" />
     </task>
     <task id="LOCAL-00001" summary="angular material initialized">
       <option name="closed" value="true" />
