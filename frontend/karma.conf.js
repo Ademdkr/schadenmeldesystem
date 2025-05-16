@@ -13,7 +13,7 @@ module.exports = function (config) {
     ],
 
     client: {
-      clearContext: false // Spec-Runner-Output im Browser stehen lassen
+      clearContext: false
     },
 
     coverageReporter: {
@@ -34,17 +34,16 @@ module.exports = function (config) {
     singleRun: true,
     restartOnFileChange: false,
 
-    // Headless-Chrome für CI
     browsers: ['ChromeHeadlessCI'],
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
         flags: [
-          '--headless',               // explizit headless
-          '--no-sandbox',             // nötig im Container
-          '--disable-gpu',            // GPU deaktivieren
-          '--disable-dev-shm-usage',  // shared memory umgehen
-          '--disable-extensions',     // Extensions aus
+          '--headless',
+          '--no-sandbox',
+          '--disable-gpu',
+          '--disable-dev-shm-usage',
+          '--disable-extensions',
           '--remote-debugging-port=9222'
         ]
       }

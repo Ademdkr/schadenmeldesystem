@@ -46,9 +46,9 @@ jobs:
         run: |
           cd frontend
           npm ci
-          npm run test -- --watch=false
+          npm run test -- --browsers=ChromeHeadlessCI --watch=false
         env:
-          CI: true       # zwingt Angular/Karma, den CI-Headless-Mode zu nutzen
+          CI: true
 
   docker:
     needs: build-test
