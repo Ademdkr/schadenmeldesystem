@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Auftrag } from '../models/auftrag.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Auftrag} from '../models/auftrag.model';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuftragService {
-  private baseUrl = 'http://localhost:8080/api/auftraege';
+  private baseUrl = `${environment.apiBaseUrl}/auftraege`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   /** Erzeugt einen neuen Auftrag und liefert ihn in voller Typisierung zurück */
   createAuftrag(auftrag: Auftrag): Observable<Auftrag> {

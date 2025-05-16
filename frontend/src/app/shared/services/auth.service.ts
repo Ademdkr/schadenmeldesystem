@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 // import { Observable } from 'rxjs';
+import {environment} from '../../environments/environment';
 
 interface LoginResponse {
   token: string;
@@ -13,13 +14,14 @@ interface LoginResponse {
 export class AuthService {
   private token: string | null = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   login(email: string, password: string): void {
     this.http
-      .post<LoginResponse>('http://localhost:8080/api/auth/login', { email, password })
+      .post<LoginResponse>(`${environment.apiBaseUrl}/auth/login`, {email, password})
       .subscribe({
-        next: ({ token }) => {
+        next: ({token}) => {
           this.setToken(token);
           this.router.navigate(['/uebersicht']);
         },
