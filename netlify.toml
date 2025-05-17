@@ -1,9 +1,12 @@
+# netlify.toml im Repo-Root
 [build]
-command = "npm ci && npm run build -- --configuration production"
-# da das Frontend im Unterordner 'frontend' liegt, musst du hier 'frontend/dist/frontend' angeben
+# 1. ins frontend wechseln, 2. Dependencies installieren, 3. Angular build ausführen
+command = "cd frontend && npm ci && npm run build -- --configuration production"
+# das Ergebnis liegt jetzt in frontend/dist/frontend
 publish = "frontend/dist/frontend"
 
 [[redirects]]
+# SPA-Fallback für alle Routen
 from = "/*"
 to   = "/index.html"
 status = 200
