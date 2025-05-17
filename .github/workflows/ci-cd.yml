@@ -2,9 +2,9 @@ name: CI/CD
 
 on:
   pull_request:
-    branches: [develop]
+    branches: [ develop ]
   push:
-    branches: [develop, main]
+    branches: [ develop, main ]
 
 jobs:
   lint:
@@ -74,7 +74,7 @@ jobs:
   deploy:
     needs: docker
     if: github.ref == 'refs/heads/main' ||
-        github.ref == 'refs/heads/develop'
+      github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -102,7 +102,8 @@ jobs:
       - name: Deploy to Netlify
         uses: netlify/actions/cli@master
         with:
-          args: deploy --dir=frontend/dist/<app-name> --prod
+          args: deploy --prod --dir=frontend/dist/frontend
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID:      ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
