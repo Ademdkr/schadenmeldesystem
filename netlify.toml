@@ -3,7 +3,7 @@
 # 1. ins frontend wechseln, 2. Dependencies installieren, 3. Angular build ausführen
 command = "cd frontend && npm ci && npm run build -- --configuration production"
 # das Ergebnis liegt jetzt in frontend/dist/frontend
-publish = "frontend/dist/frontend"
+publish = "frontend/dist/frontend/browser"
 
 [[redirects]]
 # SPA-Fallback für alle Routen
