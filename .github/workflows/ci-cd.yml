@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Debug backend folder
-        run: |
-          ls -l backend
-          file backend/gradlew
       - name: Make backend/gradlew executable
         run: chmod +x backend/gradlew
       - name: Setup JDK 17
@@ -22,10 +18,10 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Run ktlint via bash
+      - name: Run ktlint
         run: |
           cd backend
-          bash gradlew ktlintCheck
+          ./gradlew ktlintCheck
 
   build-test:
     needs: lint
@@ -80,40 +76,32 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # ───────────────────────────────────────────────
-      # 1) Deploy Backend zu Render
-      # ───────────────────────────────────────────────
-      - name: Deploy Backend to Render
-        uses: render-examples/render-deploy@v1
-        with:
-          apiKey: ${{ secrets.RENDER_API_KEY }}
-          serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+      # 1) Render-Deploy
+      - name: Trigger Render Deploy
+        run: |
+          curl -X POST https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
+               -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+               -H "Accept: application/json" \
+               -d '{}'
 
-      # ───────────────────────────────────────────────
-      # 2) Install & Build Frontend für Netlify
-      # ───────────────────────────────────────────────
+      # 2) Angular Build (für Netlify)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
       - name: Install & Build Frontend
         run: |
           cd frontend
           npm ci
           npm run build
 
-      # ───────────────────────────────────────────────
-      # 3) Deploy Static Files zu Netlify
-      # ───────────────────────────────────────────────
+      # 3) Netlify Deploy
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.2.3
+        uses: netlify/actions/cli@master
         with:
-          publish-dir: frontend/build
-          production-branch: develop
+          args: deploy --dir=frontend/dist/<app-name> --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_ID:      ${{ secrets.NETLIFY_SITE_ID }}
