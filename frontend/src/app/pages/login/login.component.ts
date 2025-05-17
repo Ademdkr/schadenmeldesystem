@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { environment } from '../../environments/environment'
 
 interface LoginResponse {
   token: string;
@@ -34,7 +35,7 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
 
     this.http
-      .post<LoginResponse>('http://localhost:8080/api/auth/login', { email, password })
+      .post<LoginResponse>(`${environment.apiBaseUrl}/auth/login`, { email, password })
       .subscribe({
         next: ({ token }) => {
           alert('Login erfolgreich!');
