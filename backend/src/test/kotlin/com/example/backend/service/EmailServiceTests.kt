@@ -6,7 +6,6 @@ import io.mockk.verify
 import jakarta.mail.internet.MimeMessage
 import org.junit.jupiter.api.Test
 import org.springframework.mail.javamail.JavaMailSender
-import org.springframework.mail.javamail.MimeMessageHelper
 
 class EmailServiceTests {
 

@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { environment } from '../../environments/environment'
+
+interface LoginResponse {
+  token: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -26,19 +31,21 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value; // Extrahiere die Werte aus dem Formular
-      this.http.post('http://localhost:8080/api/auth/login', { email, password }).subscribe({
-        next: (response: any) => {
+    if (!this.loginForm.valid) { return; }
+    const { email, password } = this.loginForm.value;
+
+    this.http
+      .post<LoginResponse>(`${environment.apiBaseUrl}/auth/login`, { email, password })
+      .subscribe({
+        next: ({ token }) => {
           alert('Login erfolgreich!');
-          this.authService.login(email, password); // Hier: Übergabe von email und password
-          this.router.navigate(['/uebersicht']); // Nach erfolgreichem Login weiterleiten
+          // Nutze den tatsächlich zurückgelieferten Token
+          this.authService.setToken(token);
+          this.router.navigate(['/uebersicht']);
         },
         error: () => {
           alert('Anmeldung fehlgeschlagen. Bitte prüfen Sie Ihre Eingaben.');
         },
       });
-    }
   }
-
 }

@@ -1,13 +1,7 @@
 package com.example.backend.service
 
-import com.example.backend.model.Lkw
 import com.example.backend.repository.LkwRepository
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Test
-import java.util.*
 
 class LkwServiceTests {
 

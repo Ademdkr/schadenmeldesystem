@@ -1,8 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {jwtDecode} from 'jwt-decode';
 import {AuftragService} from '../../shared/services/auftrag.service';
 import {AuthService} from '../../shared/services/auth.service';
-import {jwtDecode} from 'jwt-decode';
+import {Auftrag} from '../../shared/models/auftrag.model';
+
+interface DecodedToken {
+  department: string;
+  firstName: string;
+  lastName: string;
+  sub: string;
+}
+
+interface Fahrzeug {
+  vin?: string;
+  marke?: string;
+  modell?: string;
+  baujahr?: number;
+}
 
 @Component({
   selector: 'app-auftrag-detail',
@@ -12,12 +29,12 @@ import {jwtDecode} from 'jwt-decode';
 })
 export class AuftragDetailComponent implements OnInit {
   auftragId: number | null = null;
-  auftrag: any = {};
-  fahrzeug: any;
-  abgabeBestaetigt: boolean = false; // Neue Property
-  userRole: string = '';
-  bearbeiter: string = '';
-  bearbeiterEmail: string = '';
+  auftrag: Auftrag | null = null;
+  fahrzeug: Fahrzeug | null = null;
+  abgabeBestaetigt = false;
+  userRole = '';
+  bearbeiter = '';
+  bearbeiterEmail = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -28,147 +45,150 @@ export class AuftragDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const auftragIdParam = params.get('auftragId');
-      if (auftragIdParam) {
-        this.auftragId = +auftragIdParam;
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('auftragId');
+      if (id) {
+        this.auftragId = +id;
         this.loadAuftragDetails();
       }
     });
-
     this.loadUserDetails();
   }
 
   loadAuftragDetails(): void {
     if (this.auftragId !== null) {
-      this.auftragService.getAuftragById(this.auftragId).subscribe(
-        (data) => {
-          this.auftrag = data;
-          // Wenn das Abgabe Datum ein String ist, konvertiere es zu einem Date-Objekt
-          if (data.abgabeDatum) {
-            this.auftrag.abgabeDatum = new Date(data.abgabeDatum);
+      this.auftragService
+        .getAuftragById(this.auftragId)
+        .subscribe(
+          (data: Auftrag) => {
+            this.auftrag = data;
+            // Datum umwandeln
+            if (data.abgabeDatum) {
+              this.auftrag.abgabeDatum = new Date(data.abgabeDatum);
+            }
+            this.fahrzeug = {
+              vin: data.vin,
+              marke: data.marke,
+              modell: data.modell,
+              baujahr: data.baujahr,
+            };
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Fehler beim Laden des Auftrags:', error);
           }
-          // Fahrzeugdaten direkt aus dem Auftrag laden
-          this.fahrzeug = {
-            vin: this.auftrag.vin,
-            marke: this.auftrag.marke,
-            modell: this.auftrag.modell,
-            baujahr: this.auftrag.baujahr,
-          };
-        },
-        (error) => {
-          console.error('Fehler beim Laden des Auftrags:', error);
-        }
-      );
+        );
     }
   }
 
   private loadUserDetails(): void {
     const token = this.authService.getToken();
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        this.userRole = decodedToken.department;
-        this.bearbeiter = `${decodedToken.firstName} ${decodedToken.lastName}`;
-        this.bearbeiterEmail = decodedToken.sub;
-      } catch (error) {
-        console.error('Ungültiges Token:', error);
-        this.authService.logout();
-      }
+    if (!token) return;
+
+    try {
+      const decodedToken = jwtDecode<DecodedToken>(token);
+      this.userRole = decodedToken.department;
+      this.bearbeiter = `${decodedToken.firstName} ${decodedToken.lastName}`;
+      this.bearbeiterEmail = decodedToken.sub;
+    } catch (error) {
+      console.error('Ungültiges Token:', error);
+      this.authService.logout();
     }
   }
 
-
   terminieren(): void {
-    if (!this.auftrag.abgabeOrt || !this.auftrag.abgabeDatum) {
+    if (!this.auftrag?.abgabeOrt || !this.auftrag.abgabeDatum) {
       console.error('Abgabe Ort und Abgabe Datum müssen ausgefüllt sein.');
       return;
     }
+    if (this.auftragId === null) return;
 
-    if (this.auftragId !== null) {
-      const body = {
-        status: 'Terminiert',
-        abgabeOrt: this.auftrag.abgabeOrt,
-        abgabeDatum: this.auftrag.abgabeDatum,
-        abgabeBestaetigt: false // Setze abgabeBestaetigt auf false
-      };
+    const body = {
+      status: 'Terminiert',
+      abgabeOrt: this.auftrag.abgabeOrt,
+      abgabeDatum: this.auftrag.abgabeDatum,
+      abgabeBestaetigt: false,
+    };
 
-      this.auftragService.updateAuftrag(this.auftragId, body).subscribe(
-        (response) => {
-          console.log('Auftrag wurde terminiert:', response);
-          this.auftrag.status = 'Terminiert'; // Lokale Aktualisierung des Status
-          this.auftrag.abgabeBestaetigt = false; // Lokale Aktualisierung von abgabeBestaetigt
-          // Weiterleitung zur Hauptseite
-          this.router.navigate(['/']); // Passe den Pfad zur Hauptseite an
+    this.auftragService
+      .updateAuftrag(this.auftragId, body)
+      .subscribe(
+        (response: Auftrag) => {
+          console.log('Auftrag terminiert:', response);
+          this.auftrag = {...this.auftrag!, status: 'Terminiert', abgabeBestaetigt: false};
+          this.router.navigate(['/']);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           console.error('Fehler beim Terminieren des Auftrags:', error);
         }
       );
-    }
   }
 
+  abgabeBestaetigen(event: MatCheckboxChange): void {
+    if (!event.checked || this.auftragId === null) return;
 
-  abgabeBestaetigen(event: any): void {
-    if (event.checked && this.auftragId !== null) {
-      const body = {abgabeBestaetigt: true};
-
-      this.auftragService.updateAuftrag(this.auftragId, body).subscribe(
-        (response) => {
-          console.log('Abgabe wurde bestätigt:', response);
-          this.auftrag.abgabeBestaetigt = true; // Lokale Aktualisierung
+    this.auftragService
+      .updateAuftrag(this.auftragId, {abgabeBestaetigt: true})
+      .subscribe(
+        (response: Auftrag) => {
+          console.log('Abgabe bestätigt:', response);
+          if (this.auftrag) this.auftrag.abgabeBestaetigt = true;
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           console.error('Fehler bei der Abgabebestätigung:', error);
         }
       );
-    }
   }
 
   startBearbeitung(): void {
-    if (this.auftragId !== null) {
-      const body = {
-        status: 'In Bearbeitung',
-        reparaturStart: new Date().toISOString(),
-        bearbeiter: this.bearbeiter,
-        bearbeiterEmail: this.bearbeiterEmail,
-      };
+    if (this.auftragId === null) return;
 
-      this.auftragService.updateAuftrag(this.auftragId, body).subscribe(
-        (response) => {
+    const reparaturStart = new Date().toISOString();
+    const body = {
+      status: 'In Bearbeitung',
+      reparaturStart,
+      bearbeiter: this.bearbeiter,
+      bearbeiterEmail: this.bearbeiterEmail,
+    };
+
+    this.auftragService
+      .updateAuftrag(this.auftragId, body)
+      .subscribe(
+        (response: Auftrag) => {
           console.log('Bearbeitung gestartet:', response);
-          this.auftrag.status = 'In Bearbeitung';
-          this.auftrag.reparaturStart = body.reparaturStart;
-          this.auftrag.bearbeiter = body.bearbeiter;
-          this.auftrag.bearbeiterEmail = body.bearbeiterEmail;
+          if (this.auftrag) {
+            Object.assign(this.auftrag, {
+              status: 'In Bearbeitung',
+              reparaturStart,
+              bearbeiter: this.bearbeiter,
+              bearbeiterEmail: this.bearbeiterEmail,
+            });
+          }
           this.router.navigate(['/']);
         },
-        (error) => {
+        (error: HttpErrorResponse) => {
           console.error('Fehler beim Start der Bearbeitung:', error);
         }
       );
-    }
   }
 
   endBearbeitung(): void {
-    if (this.auftragId !== null) {
-      const body = {
-        status: 'Abgeschlossen',
-        reparaturEnde: new Date().toISOString() // Aktuelles Datum und Uhrzeit
-      };
+    if (this.auftragId === null) return;
 
-      this.auftragService.updateAuftrag(this.auftragId, body).subscribe(
-        (response) => {
-          console.log('Bearbeitung gestartet:', response);
-          this.auftrag.status = 'Abgeschlossen';
-          this.auftrag.reparaturEnde = body.reparaturEnde; // Lokale Aktualisierung
-          // Weiterleitung zur Hauptseite
-          this.router.navigate(['/']); // Passe den Pfad zur Hauptseite an
+    const reparaturEnde = new Date().toISOString();
+    this.auftragService
+      .updateAuftrag(this.auftragId, {status: 'Abgeschlossen', reparaturEnde})
+      .subscribe(
+        (response: Auftrag) => {
+          console.log('Bearbeitung abgeschlossen:', response);
+          if (this.auftrag) {
+            this.auftrag.status = 'Abgeschlossen';
+            this.auftrag.reparaturEnde = reparaturEnde;
+          }
+          this.router.navigate(['/']);
         },
-        (error) => {
-          console.error('Fehler beim Start der Bearbeitung:', error);
+        (error: HttpErrorResponse) => {
+          console.error('Fehler beim Abschluss der Bearbeitung:', error);
         }
       );
-    }
   }
 }

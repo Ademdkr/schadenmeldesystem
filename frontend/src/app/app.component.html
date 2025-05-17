@@ -1,4 +1,5 @@
 <main class="main">
   <app-sidenav *ngIf="authService.isLoggedIn()"></app-sidenav>
-  <router-outlet/>
+  <h1>Hello, {{ title }}</h1>
+  <router-outlet></router-outlet>
 </main>

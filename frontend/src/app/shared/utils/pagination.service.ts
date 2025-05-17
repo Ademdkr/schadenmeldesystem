@@ -1,25 +1,33 @@
-import {Injectable} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-
+import { Injectable } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaginationService {
-
-  constructor() {
-  }
-
-  initializeTable(
-    dataSource: MatTableDataSource<any>,
+  /**
+   * Füllt die Tabelle mit Platzhalterzeilen auf und hängt den Paginator an.
+   */
+  initializeTable<T>(
+    dataSource: MatTableDataSource<T>,
     paginator: MatPaginator,
-    placeholderRowCount: number = 10
+    placeholderRowCount = 10
   ): void {
     paginator.pageSize = placeholderRowCount;
-    const filledData = [...dataSource.data];
-    const placeholder = this.createPlaceholderRow(dataSource.data[0]);
 
+    // Aktuelle Daten kopieren
+    const filledData: T[] = [...dataSource.data];
+    if (filledData.length === 0) {
+      // Wenn noch nichts da ist, einfach Paginator setzen und beenden
+      dataSource.paginator = paginator;
+      return;
+    }
+
+    // Ein Platzhalter-Objekt basierend auf der ersten Zeile erstellen
+    const placeholder = this.createPlaceholderRow(filledData[0]);
+
+    // Solange auffüllen, bis wir die gewünschte Zeilenanzahl haben
     while (filledData.length < placeholderRowCount) {
       filledData.push(placeholder);
     }
@@ -28,11 +36,22 @@ export class PaginationService {
     dataSource.paginator = paginator;
   }
 
-  private createPlaceholderRow(firstRow: any): any {
-    const placeholderRow = {...firstRow};
-    Object.keys(placeholderRow).forEach(key => {
-      placeholderRow[key] = null;
+  /**
+   * Erzeugt aus einer echten Zeile eine Platzhalter-Zeile,
+   * indem alle Felder auf null gesetzt werden.
+   */
+  private createPlaceholderRow<T>(firstRow: T): T {
+    // Wir casten zuerst in eine Map von string→unknown, um Feldzugriffe zu
+    // erlauben, ohne `any` zu verwenden.
+    const placeholderMap = {
+      ...(firstRow as unknown as Record<string, unknown>),
+    };
+
+    Object.keys(placeholderMap).forEach((key) => {
+      placeholderMap[key] = null;
     });
-    return placeholderRow;
+
+    // Zurückcasten auf T – muss akzeptieren, dass hier null drinsteht
+    return placeholderMap as unknown as T;
   }
 }

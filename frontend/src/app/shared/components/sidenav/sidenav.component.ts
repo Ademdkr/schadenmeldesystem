@@ -3,6 +3,14 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
+interface DecodedToken {
+  id: string;
+  department: string;
+  firstName: string;
+  lastName: string;
+  sub: string;
+}
+
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -10,11 +18,11 @@ import { jwtDecode } from 'jwt-decode';
   standalone: false,
 })
 export class SidenavComponent implements OnInit {
-  id: string = '';
-  userRole: string = '';
-  firstName: string = '';
-  lastName: string = '';
-  email: string = '';
+  id = '';
+  userRole = '';
+  firstName = '';
+  lastName = '';
+  email = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -25,19 +33,20 @@ export class SidenavComponent implements OnInit {
   // Lädt die Benutzerinformationen aus dem JWT-Token
   private loadUserDetails(): void {
     const token = this.authService.getToken();
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token); // Hier wird jwtDecode korrekt verwendet
-        this.id = decodedToken.id;
-        this.userRole = decodedToken.department;
-        this.firstName = decodedToken.firstName;
-        this.lastName = decodedToken.lastName;
-        this.email = decodedToken.sub;
-        console.log(decodedToken); // Debugging-Zwecke
-      } catch (error) {
-        console.error('Ungültiges Token:', error);
-        this.authService.logout(); // Token ist ungültig → Benutzer ausloggen
-      }
+    if (!token) { return; }
+
+    try {
+      // so gibt's kein `any` mehr:
+      const decodedToken = jwtDecode<DecodedToken>(token);
+      this.id         = decodedToken.id;
+      this.userRole   = decodedToken.department;
+      this.firstName  = decodedToken.firstName;
+      this.lastName   = decodedToken.lastName;
+      this.email      = decodedToken.sub;
+      console.log(decodedToken); // Debugging-Zwecke
+    } catch (error) {
+      console.error('Ungültiges Token:', error);
+      this.authService.logout(); // Token ist ungültig → Benutzer ausloggen
     }
   }
 

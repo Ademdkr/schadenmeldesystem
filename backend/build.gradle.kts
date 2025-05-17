@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "3.1.2"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.8.21"
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.0"
     kotlin("plugin.spring") version "1.8.21"
     kotlin("plugin.jpa") version "1.8.21"
 }
@@ -52,6 +53,8 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("org.mockito:mockito-core:5.2.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation(kotlin("test"))
+    testImplementation("org.mockito:mockito-inline:5.2.0")
 }
 
 tasks.withType<Test> {

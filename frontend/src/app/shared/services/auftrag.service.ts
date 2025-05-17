@@ -1,30 +1,38 @@
 import {Injectable} from '@angular/core';
-import {Auftrag} from '../models/auftrag.model';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Auftrag} from '../models/auftrag.model';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuftragService {
+  private baseUrl = `${environment.apiBaseUrl}/auftraege`;
 
-  private baseUrl = 'http://localhost:8080/api/auftraege'; // Backend-URL
   constructor(private http: HttpClient) {
   }
 
-  createAuftrag(auftrag: any): Observable<any> {
-    return this.http.post(this.baseUrl, auftrag);
+  /** Erzeugt einen neuen Auftrag und liefert ihn in voller Typisierung zurück */
+  createAuftrag(auftrag: Auftrag): Observable<Auftrag> {
+    return this.http.post<Auftrag>(this.baseUrl, auftrag);
   }
 
+  /** Liefert alle Aufträge mit dem gegebenen Status */
   getAuftraegeByStatus(status: string): Observable<Auftrag[]> {
     return this.http.get<Auftrag[]>(`${this.baseUrl}/status/${status}`);
   }
 
-  getAuftragById(auftragId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${auftragId}`);
+  /** Liefert einen einzelnen Auftrag nach ID */
+  getAuftragById(auftragId: number): Observable<Auftrag> {
+    return this.http.get<Auftrag>(`${this.baseUrl}/${auftragId}`);
   }
 
-  updateAuftrag(id: number, updates: any): Observable<any> {
-    return this.http.patch(`${this.baseUrl}/${id}`, updates);
+  /**
+   * Aktualisiert die angegebenen Felder eines Auftrags.
+   * `updates` darf ein Teilobjekt von Auftrag sein.
+   */
+  updateAuftrag(id: number, updates: Partial<Auftrag>): Observable<Auftrag> {
+    return this.http.patch<Auftrag>(`${this.baseUrl}/${id}`, updates);
   }
 }

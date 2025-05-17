@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController {
 
     val users = listOf(
-        User(1,"Fahrer", "Max", "Mustermann", "max.mustermann+1@inbox.mailtrap.io", "password123"),
+        User(1, "Fahrer", "Max", "Mustermann", "max.mustermann+1@inbox.mailtrap.io", "password123"),
         User(2, "Fahrer", "Anna", "Müller", "anna.mueller+1@inbox.mailtrap.io", "password123"),
-        User(3,"Werkstatt", "Hans", "Günther", "hans.guenther+1@inbox.mailtrap.io", "password123"),
+        User(3, "Werkstatt", "Hans", "Günther", "hans.guenther+1@inbox.mailtrap.io", "password123"),
         User(4, "Werkstatt", "Olli", "Pocher", "olli.pocher+1@inbox.mailtrap.io", "password123")
     )
 

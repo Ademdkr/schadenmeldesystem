@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="backend optimierung wird durchgeführt">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/626a5249-61ae-432c-99ba-1bb18256405a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/626a5249-61ae-432c-99ba-1bb18256405a.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/626a5249-61ae-432c-99ba-1bb18256405a/storage_v2/_src_/database/schadenmeldesystem.ICFoYg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/626a5249-61ae-432c-99ba-1bb18256405a/storage_v2/_src_/database/schadenmeldesystem.ICFoYg/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci-cd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/AuftragController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/AuftragController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/AuthController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/LkwController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/controller/LkwController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/model/Auftrag.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/model/Auftrag.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/repository/AuftragRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/repository/AuftragRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/service/AuftragService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/service/AuftragService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/service/LkwService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/example/backend/service/LkwService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/auftrag-detail/auftrag-detail.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/services/auftrag.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/services/auftrag.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +73,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Ademdkr/schadenmeldesystem.git&quot;,
-    &quot;accountId&quot;: &quot;6b654d09-1e8d-4940-82d7-66d1c2cfbdb4&quot;
+    &quot;accountId&quot;: &quot;2707211e-5020-44d7-91c3-2e1c415855b0&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -96,64 +83,66 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2raGwGHYUFazwZNueFw24IFXrvW" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.AuftragControllerTest.executor": "Run",
-    "Gradle.AuftragRepositoryTest.executor": "Run",
-    "Gradle.AuftragServiceTest.executor": "Run",
-    "Gradle.Build backend.executor": "Run",
-    "Gradle.LkwControllerTest.executor": "Run",
-    "Gradle.LkwServiceTest.executor": "Run",
-    "Gradle.Load Gradle Dependencies.executor": "Run",
-    "Gradle.Tests in 'backend'.executor": "Run",
-    "Gradle.Tests in 'backend.test'.executor": "Run",
-    "JavaScript Debug.Angular Application (frontend).executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "check19",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Adem/Desktop/Dev/Java/schadenmeldesystem",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "npm.Angular CLI Server (frontend).executor": "Run",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.31724137",
-    "settings.editor.selected.configurable": "settings.qodana",
-    "ts.external.directory.path": "C:\\Users\\Adem\\Desktop\\Dev\\Java\\schadenmeldesystem\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.AuftragControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AuftragRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AuftragServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build backend.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Building Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LkwControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LkwServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'backend'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'backend.test'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.backend [wrapper].executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.Angular Application (frontend).executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Adem/Desktop/Dev/Java/schadenmeldesystem&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.Angular CLI Server (frontend).executor&quot;: &quot;Run&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.23333333&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Administrator\\Desktop\\Dev\\Java\\schadenmeldesystem\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "module"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;
     ],
-    "DatabaseDriversLRU": [
-      "sqlite",
-      "postgresql",
-      "mysql"
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;,
+      &quot;sqlite&quot;,
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\Dev\Java\schadenmeldesystem" />
       <recent name="C:\Users\Adem\Desktop\Dev\Java\schadenmeldesystem\frontend\src\app\shared" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
@@ -183,6 +172,28 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="backend [wrapper]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="wrapper" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="backend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.backend.BackendApplication" />
@@ -209,6 +220,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.BackendApplication" />
+        <item itemvalue="Gradle.backend [wrapper]" />
         <item itemvalue="Gradle.Tests in 'backend.test'" />
       </list>
     </recent_temporary>
@@ -216,12 +228,15 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.153" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.153" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="" />
@@ -272,6 +287,18 @@
       <workItem from="1738284613248" duration="3328000" />
       <workItem from="1738326540445" duration="4737000" />
       <workItem from="1738353936949" duration="3512000" />
+      <workItem from="1747125599042" duration="13411000" />
+      <workItem from="1747162048731" duration="2383000" />
+      <workItem from="1747209757328" duration="439000" />
+      <workItem from="1747210210310" duration="667000" />
+      <workItem from="1747211163178" duration="5422000" />
+      <workItem from="1747221662349" duration="823000" />
+      <workItem from="1747291494140" duration="11779000" />
+      <workItem from="1747327524379" duration="19422000" />
+      <workItem from="1747378770987" duration="6144000" />
+      <workItem from="1747385405110" duration="1092000" />
+      <workItem from="1747386530573" duration="2168000" />
+      <workItem from="1747422829344" duration="31762000" />
     </task>
     <task id="LOCAL-00001" summary="angular material initialized">
       <option name="closed" value="true" />
@@ -474,6 +501,16 @@
     <MESSAGE value="nur noch email benachrichtigungen implementieren uebrig" />
     <MESSAGE value="backend optimierung wird durchgeführt" />
     <option name="LAST_COMMIT_MESSAGE" value="backend optimierung wird durchgeführt" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/frontend/src/app/shared/guards/no-auth.guard.ts</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

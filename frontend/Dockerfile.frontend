@@ -1,0 +1,23 @@
+# Stage 1: Node-Build
+FROM node:18-alpine AS build
+WORKDIR /app
+
+# Package-Manifeste kopieren und Dependencies installieren
+COPY package*.json ./
+RUN npm ci
+
+# Restlichen Code kopieren und bauen
+COPY . ./
+RUN npm run build -- --configuration=production
+
+# Stage 2: Nginx-Static-Server
+FROM nginx:alpine
+
+# optional: Standard-Inhalte löschen
+RUN rm -rf /usr/share/nginx/html/*
+
+# Kopiere das gebaute Dist-Verzeichnis in den nginx-Webroot
+COPY --from=build /app/dist/ /usr/share/nginx/html/
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

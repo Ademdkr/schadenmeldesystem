@@ -8,6 +8,8 @@ import { AuthService } from './shared/services/auth.service';
   standalone: false
 })
 export class AppComponent {
-  title: 'frontend' | undefined;
+  // Titel initialisieren, damit Tests und Template greifen
+  title = 'frontend';
+
   constructor(public authService: AuthService) {}
 }
