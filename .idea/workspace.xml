@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13521e29-efd4-4090-87d3-d874a05bb218" name="Changes" comment="backend optimierung wird durchgeführt">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +148,7 @@
       <recent name="org.example.backend.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.BackendApplication">
+  <component name="RunManager" selected="npm.Angular CLI Server (frontend)">
     <configuration name="Tests in 'backend.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -299,7 +297,7 @@
       <workItem from="1747378770987" duration="6144000" />
       <workItem from="1747385405110" duration="1092000" />
       <workItem from="1747386530573" duration="2168000" />
-      <workItem from="1747422829344" duration="21019000" />
+      <workItem from="1747422829344" duration="21390000" />
     </task>
     <task id="LOCAL-00001" summary="angular material initialized">
       <option name="closed" value="true" />
